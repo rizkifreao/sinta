@@ -81,16 +81,15 @@ class Pemesanan extends CI_Controller
         $data = array(
             'id_konsumen' => $this->session->userdata('konsumen_id'),
             'nama_barang' => $this->input->post('nama_barang',TRUE),
-            'kapasistas' => $this->input->post('kapasistas',TRUE),
+            'kapasitas_muat' => $this->input->post('kapasistas',TRUE).$this->input->post('satuan',TRUE),
             'tujuan' => $this->input->post('tujuan',TRUE),
             'jum_kontainer' => $this->input->post('jum_kontainer',TRUE),
-            'U20' => $U20,
-            'U40' => $U40,
-            'tarif' => ($U20 ==="0") ? $U20 : $U40,
+            '_20' => $U20,
+            '_40' => $U40,
+            'tarif' => ($U20) ? $U20 : $U40,
             'tgl_pesan' => date("Y/m/d"),
-            'jadwal_kirim' => $this->input->post('jadwal_kirim',TRUE),
+            'jadwal_kirim' => date('Y/m/d',strtotime($this->input->post('jadwal_kirim',TRUE))),
             'keterangan' => $this->input->post('keterangan',TRUE),
-            'status_pengiriman' => "PENDING",
         );
 
         $pilih = $this->input->post('tujuan',TRUE);

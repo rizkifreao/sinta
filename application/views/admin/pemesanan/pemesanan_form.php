@@ -83,6 +83,16 @@ $rutes = $this->M_Rute->getAllBy(array('id_konsumen' => $this->session->userdata
             </div>
           </div>
 
+          <td><?= $no++ ?></td>
+          <td><?= $pemesanan->nama_barang ?></td>
+          <td><?= $pemesanan->kapasitas_muat?></td>
+          <td><?= $pemesanan->tujuan ?></td>
+          <td><?= $pemesanan->jum_kontainer ?></td>
+          <td><?= rupiah($pemesanan->tarif)?></td>
+          <td><?= tgl_indo($pemesanan->tgl_kirim) ?></td>
+          <td><?= tgl_indo($pemesanan->jadwal_kirim) ?></td>
+          <td><?= $pemesanan->keterangan ?></td>
+
           <div class='form-group row'>
             <label for="lname"class="col-sm-3  control-label col-form-label" <?php //form_error('U40') ? 'text-danger' : ''; ?>>Jadwal Kirim</label>
             <div class="col-sm-9">
