@@ -1,3 +1,7 @@
+<?php 
+$rutes = $this->M_Rute->getAllBy(array('id_konsumen' => $this->session->userdata('konsumen_id')));
+?>
+
 <div class="page-breadcrumb">
     <div class="row">
         <div class="col-12 d-flex no-block align-items-center">
@@ -24,15 +28,16 @@
   <div class="col-md-6" style="padding-left: 0px" data-select2-id="16">
     <div class="card">       
       <form action="<?=$action?>" method="post" autocomplete="off" >
+      
         <div class='card-body'>
 
           <div class='form-group row'>
             <label for="lname"class="col-sm-3  control-label col-form-label <?php //form_error('tujuan') ? 'text-danger' : ''; ?>">Tujuan</label>
             <div class="col-sm-9">
               <select id="tujuan" class="form-control  custom-select">
-                <option value="">Pilih Tujuan</option>
+                <option value="pilih">Pilih Tujuan</option>
                 <optgroup label="Kota">
-                  <?php foreach ($tujuan as $row) :?>
+                  <?php foreach ($rutes as $row) :?>
                     <option value="<?=$row->id_rute?>"><?=$row->tujuan?></option>
                   <?php endforeach; ?>
                 </optgroup>
@@ -43,24 +48,60 @@
               </div>  
             </div>
           </div>
+
+          <div id="F20">
+            <div class='form-group row'>
+              <label for="lname"class="col-sm-3  control-label col-form-label <?php //form_error('U20') ? 'text-danger' : ''; ?>">Ukuran 20</label>
+              <div class="col-sm-9">
+                  <input type="text" class="form-control <?php //form_error('U20') ? 'is-invalid' : ''; ?>" name="U20" id="U20" placeholder="Enter Harga" value="<?php //echo $U20; ?>" disabled />
+                  <div class="<?php //form_error('U20') ? 'invalid-feedback' : '' ?>">
+                    <?php //form_error('U20') ?>
+                  </div>
+              </div>
+            </div>
+          </div>
+
+          <div id="F40">
+            <div class='form-group row'>
+              <label for="lname"class="col-sm-3  control-label col-form-label" <?php //form_error('U40') ? 'text-danger' : ''; ?>>Ukuran 40</label>
+              <div class="col-sm-9">
+                  <input type="text" class="form-control <?php //form_error('U40') ? 'is-invalid' : ''; ?>" name="U40" id="U40" placeholder="Enter Harga" value="<?php //echo $U40;  ?>" disabled/>
+                  <div class="<?php //form_error('U40') ? 'invalid-feedback' : '' ?>">
+                  <?php //form_error('U40') ?>
+                  </div>
+              </div>
+            </div>
+          </div>
           
           <div class='form-group row'>
-            <label for="lname"class="col-sm-3  control-label col-form-label <?php //form_error('U20') ? 'text-danger' : ''; ?>">Ukuran 20</label>
+            <label for="lname"class="col-sm-3  control-label col-form-label" <?php //form_error('U40') ? 'text-danger' : ''; ?>>Nama Barang</label>
             <div class="col-sm-9">
-                 <input type="text" class="form-control <?php //form_error('U20') ? 'is-invalid' : ''; ?>" name="U20" id="U20" data-toggle="tooltip" placeholder="Enter Harga" value="<?php //echo $U20; ?>" disabled />
-                 <div class="<?php //form_error('U20') ? 'invalid-feedback' : '' ?>">
-                  <?php //form_error('U20') ?>
-                 </div>
+                <input type="text" class="form-control <?php //form_error('U40') ? 'is-invalid' : ''; ?>" name="nama_barang" id="nama_barang" placeholder="Masukan nama barang" value="<?php //echo $U40;  ?>"/>
+                <div class="<?php //form_error('U40') ? 'invalid-feedback' : '' ?>">
+                <?php //form_error('U40') ?>
+                </div>
             </div>
           </div>
 
           <div class='form-group row'>
-            <label for="lname"class="col-sm-3  control-label col-form-label" <?php //form_error('U40') ? 'text-danger' : ''; ?>>Ukuran 40</label>
+            <label for="lname"class="col-sm-3  control-label col-form-label" <?php //form_error('U40') ? 'text-danger' : ''; ?>>Jadwal Kirim</label>
             <div class="col-sm-9">
-                 <input type="number" class="form-control <?php //form_error('U40') ? 'is-invalid' : ''; ?>" name="U40" id="U40" data-toggle="tooltip" placeholder="Enter Harga" value="<?php //echo $U40;  ?>" value="<?php //echo $U20; ?>" data-original-title="Tanpa tanda koma (,) atau Titik (.)"/>
-                 <div class="<?php //form_error('U40') ? 'invalid-feedback' : '' ?>">
-                 <?php //form_error('U40') ?>
-                 </div>
+              <div class="input-group">
+                <input type="text" class="form-control tanggal" name="jadwal_kirim" placeholder="dd/mm/yyyy">
+                <div class="input-group-append">
+                    <span class="input-group-text"><i class="fa fa-calendar"></i></span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class='form-group row'>
+            <label for="lname"class="col-sm-3  control-label col-form-label" <?php //form_error('U40') ? 'text-danger' : ''; ?>>Keterangan</label>
+            <div class="col-sm-9">
+                <textarea class="form-control <?php //form_error('U40') ? 'is-invalid' : ''; ?>" name="keterangan" id="keterangan" placeholder="Masukan Keterangan" value="<?php //echo $U40;  ?>"></textarea>
+                <div class="<?php //form_error('U40') ? 'invalid-feedback' : '' ?>">
+                <?php //form_error('U40') ?>
+                </div>
             </div>
           </div>
           
@@ -80,24 +121,33 @@
 </div>
 
 <script>
-  $("#tujuan").select2().on('change', function(){
-    var id = $(this).find(":selected").val();
-
-    $.ajax({
-      type: 'GET',
-      url: "<?=base_url('');?>rute/detailJson/"+id,
-      success: function (data) {
-        //Do stuff with the JSON data
-          console.log(data);
-        //  $('#pelangganid').val(id).hide();
-         $('#U20').val("Rp. "+data._20);
-        //  $('#notelp').val(data.notelp);
-        //  $('#alamat').val(data.alamat);
-        //  $('#nopolisi').val(data.nopolisi);
-        //  $('#jenisid').val(data.jenisid);
-        //  $('#merkid').val(data.merkid);
-        }
+  $(document).ready(function(){
+    $('.tanggal').datepicker({
+      format: 'dd/mm/yyyy',
+      autoclose: true,
+      todayHighlight: true
     });
-    
+    $('#F20').prop('hidden', 'true');
+    $('#F40').prop('hidden', 'true');
+    $("#tujuan").select2().on('change', function(){
+      var id = $(this).find(":selected").val();
+
+      $.ajax({
+        type: 'GET',
+        url: "<?=base_url('');?>rute/detailJson/"+id,
+        success: function (response) {
+          //Do stuff with the JSON data
+          if (response._20 === "0") {
+            $('#F20').prop('hidden', 'true');
+            $('#F40').prop('hidden', false);
+            $('#U40').val('Rp. '+response._40);
+          }else if (response._40 === "0" ){
+            $('#F40').prop('hidden', 'true');
+            $('#F20').prop('hidden', false);
+            $('#U20').val('Rp. '+response._20);
+          }
+          }
+      });
+    });
   });
 </script>

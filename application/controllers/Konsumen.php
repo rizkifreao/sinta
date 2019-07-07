@@ -188,8 +188,8 @@ class Konsumen extends CI_Controller
         array('required' =>'*Kolom ini wajib di isi','max-length'=>'Tidak boleh lebih dari 25 char !'));
         $this->form_validation->set_rules('perusahaan', 'perusahaan', 'trim|required|max_length[13]',
         array('required' =>'*Kolom ini wajib di isi','max-length'=>'Tidak boleh lebih dari 25 char !'));
-        $this->form_validation->set_rules('npwp', 'npwp', 'trim|required|numeric|max_length[13]',
-        array('required' =>'*Kolom ini wajib di isi','numeric'=>'Kolom harus berisi angka !!','max-length'=>'Tidak boleh lebih dari 25 char !'));
+        $this->form_validation->set_rules('npwp', 'npwp', 'trim|required|max_length[13]',
+        array('required' =>'*Kolom ini wajib di isi','max-length'=>'Tidak boleh lebih dari 25 char !'));
         $this->form_validation->set_rules('alamat', 'alamat', 'trim|required|max_length[13]',
         array('required' =>'*Kolom ini wajib di isi','max-length'=>'Tidak boleh lebih dari 25 char !'));
     }
