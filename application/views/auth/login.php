@@ -8,9 +8,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="description" content="">
     <meta name="author" content="">
-    <!-- Favicon icon -->
-    <link rel="icon" type="image/png" sizes="16x16" href="../../assets/images/favicon.png">
-    <title>Matrix Template - The Ultimate Multipurpose admin template</title>
+    <!-- Favicon icon --> 
+     <link rel="icon" type="image/png" sizes="50x50" href="<?= base_url('assets/img') ?>/logos.png">
+    <title>Login</title>
     <!-- Custom CSS -->
     <link href="<?= base_url('assets/sb-admin') ?>/dist/css/style.min.css" rel="stylesheet">
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
@@ -62,6 +62,8 @@
                     <div class="text-center p-t-20 p-b-20">
                         <span class="db"><img src="<?= base_url('assets') ?>/img/logos.png" alt="logo" width="150px" /></span>
                     </div>
+
+                    <h2 style="color:white" ><center>Silahkan Login</center></h2>
                     <!-- Form -->
                     <form class="form-horizontal m-t-20" id="loginform" method="post" action="<?= base_url() ?>auth/login">
                         <div class="row p-b-30">
@@ -84,7 +86,7 @@
                             <div class="col-12">
                                 <div class="form-group">
                                     <div class="p-t-20">
-                                        <button class="btn btn-info" id="to-recover" type="button"><i class="fa fa-lock m-r-5"></i> Lost password?</button>
+                                        <button class="btn btn-info" id="to-recover" type="button"><i class="fa fa-lock m-r-5"></i> Lupa Kata Sandi?</button>
                                         <button class="btn btn-success float-right" type="submit">Login</button>
                                     </div>
                                 </div>

@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html>
+    <link rel="icon" type="image/png" sizes="16x16" href="<?= base_url('assets/sb-admin') ?>/assets/images/favicon.png">
     <!-- Content Header (Page header) -->
     <section class="content-header">
         <h1>
