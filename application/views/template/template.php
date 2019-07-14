@@ -9,8 +9,8 @@
     <meta name="description" content="Project Akhir">
     <meta name="author" content="Sinta">
     <!-- Favicon icon -->
-    <link rel="icon" type="image/png" sizes="16x16" href="<?= base_url('assets/sb-admin') ?>/assets/images/favicon.png">
-    <title>Matrix Template - The Ultimate Multipurpose admin template</title>
+    <link rel="icon" type="image/png" sizes="50x50" href="<?= base_url('assets/img') ?>/logos.png">
+    <title>Dashboard | Cv.Maju Bersama Sejahtera</title>
     <!-- Custom CSS -->
     <link href="<?= base_url('assets/sb-admin') ?>/assets/libs/flot/css/float-chart.css" rel="stylesheet">
     <!-- SELECT -->
@@ -113,9 +113,7 @@
             <!-- footer -->
             <!-- ============================================================== -->
             
-            <footer class="footer text-center">
-                All Rights Reserved by Matrix-admin. Designed and Developed by <a href="https://wrappixel.com">WrapPixel</a>.
-            </footer>
+            
             <!-- ============================================================== -->
             <!-- End footer -->
             <!-- ============================================================== -->
