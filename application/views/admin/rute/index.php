@@ -17,41 +17,41 @@
 <div class="container-fluid">
     <div class="card">
         <div class="card-body">
-        <section class="content">
-            <div class="row">
-                <div class="col-md-12">
-                    <div class="box box-primary">
-                        <div class="box-body table-responsive">
-                            <table id="table-rute" class="table table-sm table-striped table-bordered" style="width:100%">
-                                <thead>
-                                    <tr>
-                                        <th width="25px">#</th>
-                                        <th>TUJUAN</th>
-                                        <th>20'</th>
-                                        <th>40'</th>
-                                        <!-- <th>Action</th> -->
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <?php $n=1; foreach ($rutes as $rute) : ?>
+            <section class="content">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="box box-primary">
+                            <div class="box-body table-responsive">
+                                <table id="table-rute" class="table table-sm table-striped table-bordered" style="width:100%">
+                                    <thead>
                                         <tr>
-                                            <td align="center"><?= $n++ ?></td>
-                                            <td><?= $rute->tujuan ?></td>
-                                            <td><?= "Rp. " . number_format($rute->_20, 0, ".", ",") ?></td>
-                                            <td><?= "Rp. " . number_format($rute->_40, 0, ".", ",") ?></td>
-                                            <!-- <td style="text-align:center" width="140px">
-                                                <a href="<?=site_url('rute/update')."/".$rute->id_rute ?>"><i class="btn btn-info btn-sm fas fa-edit" data-toggle="tooltip" title="Edit"></i></a>
-                                                <a href="<?=site_url('rute/delete')."/".$rute->id_rute ?>" data-toggle="tooltip" title="" class="btn btn-danger btn-sm fas fa-trash-alt" onclick="javasciprt: return confirm('Apakah anda yakin ?')" data-original-title="Hapus"><i class=""></i></a>
-                                            </td> -->
+                                            <th width="25px">#</th>
+                                            <th>TUJUAN</th>
+                                            <th>20'</th>
+                                            <th>40'</th>
+                                            <!-- <th>Action</th> -->
                                         </tr>
-                                    <?php endforeach; ?>
-                                </tbody>
-                            </table>
-                        </div>
-                    </div><!-- /.box -->
+                                    </thead>
+                                    <tbody>
+                                        <?php $n=1; foreach ($rutes as $rute) : ?>
+                                            <tr>
+                                                <td align="center"><?= $n++ ?></td>
+                                                <td><?= $rute->tujuan ?></td>
+                                                <td><?= "Rp. " . number_format($rute->_20, 0, ".", ",") ?></td>
+                                                <td><?= "Rp. " . number_format($rute->_40, 0, ".", ",") ?></td>
+                                                <!-- <td style="text-align:center" width="140px">
+                                                    <a href="<?=site_url('rute/update')."/".$rute->id_rute ?>"><i class="btn btn-info btn-sm fas fa-edit" data-toggle="tooltip" title="Edit"></i></a>
+                                                    <a href="<?=site_url('rute/delete')."/".$rute->id_rute ?>" data-toggle="tooltip" title="" class="btn btn-danger btn-sm fas fa-trash-alt" onclick="javasciprt: return confirm('Apakah anda yakin ?')" data-original-title="Hapus"><i class=""></i></a>
+                                                </td> -->
+                                            </tr>
+                                        <?php endforeach; ?>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div><!-- /.box -->
+                    </div>
                 </div>
-            </div>
-        </section>
+            </section>
         </div>
     </div>
 </div>

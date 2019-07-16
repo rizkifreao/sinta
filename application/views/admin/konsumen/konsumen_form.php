@@ -70,7 +70,7 @@
           <div class='form-group row'>
             <label for="lname"class="col-sm-3  control-label col-form-label" <?=form_error('alamat') ? 'text-danger' : ''; ?>>Alamat</label>
             <div class="col-sm-9">
-                 <input type="text" class="form-control <?=form_error('alamat') ? 'is-invalid' : ''; ?>" name="alamat" id="alamat" data-toggle="tooltip" placeholder="Masukan Alamat" value="<?php echo $alamat;  ?>" value="<?php echo $jabatan; ?>"/>
+                 <textarea class="form-control <?=form_error('alamat') ? 'is-invalid' : ''; ?>" name="alamat" id="alamat" placeholder="Masukan Keterangan" ><?php echo $alamat?></textarea>
                  <div class="<?=form_error('alamat') ? 'invalid-feedback' : '' ?>">
                  <?=form_error('alamat') ?>
                  </div>
@@ -78,7 +78,7 @@
           </div>
 
           <div class="form-group row">
-              <label class="col-md-3 control-label col-form-label">Unggah Profil Perusahaan</label>
+              <label class="col-md-3 control-label col-form-label">Unggah Dok MOU</label>
               <div class="col-md-9">
                   <div class="custom-file">
                       <input type="file" name="dok_MOU">

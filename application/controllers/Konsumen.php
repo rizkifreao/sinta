@@ -184,13 +184,13 @@ class Konsumen extends CI_Controller
     {
         $this->form_validation->set_rules('nama_konsumen', 'nama_konsumen', 'trim|required|max_length[25]',
         array('required' =>'*Kolom ini wajib di isi','max-length'=>'Tidak boleh lebih dari 25 char !'));
-        $this->form_validation->set_rules('jabatan', 'jabatan', 'trim|required|max_length[13]',
+        $this->form_validation->set_rules('jabatan', 'jabatan', 'trim|required|max_length[25]',
         array('required' =>'*Kolom ini wajib di isi','max-length'=>'Tidak boleh lebih dari 25 char !'));
-        $this->form_validation->set_rules('perusahaan', 'perusahaan', 'trim|required|max_length[13]',
+        $this->form_validation->set_rules('perusahaan', 'perusahaan', 'trim|required|max_length[25]',
         array('required' =>'*Kolom ini wajib di isi','max-length'=>'Tidak boleh lebih dari 25 char !'));
-        $this->form_validation->set_rules('npwp', 'npwp', 'trim|required|max_length[13]',
+        $this->form_validation->set_rules('npwp', 'npwp', 'trim|required|max_length[25]',
         array('required' =>'*Kolom ini wajib di isi','max-length'=>'Tidak boleh lebih dari 25 char !'));
-        $this->form_validation->set_rules('alamat', 'alamat', 'trim|required|max_length[13]',
+        $this->form_validation->set_rules('alamat', 'alamat', 'trim|required|max_length[50]',
         array('required' =>'*Kolom ini wajib di isi','max-length'=>'Tidak boleh lebih dari 25 char !'));
     }
 }

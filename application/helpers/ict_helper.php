@@ -73,6 +73,16 @@ function rupiah($angka) {
     return $rupiah;
 }
 
+function status_kirim($status)
+{
+    if ($status == "PENDING") {
+        return "<td class='text-warning'>".$status."</td>";
+    }else if($status == "PROSES"){
+        return "<td class='text-success'>".$status."</td>";
+    }else if($status == "BATAL"){
+        return "<td class='text-danger'>".$status."</td>";
+    }
+}
 
 function tgl_indo($tgl) {
     $tanggal = substr($tgl, 8, 2);
