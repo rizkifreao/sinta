@@ -6,14 +6,44 @@ class M_DetailPesanan extends CI_Model {
     var $pk = "id";
     var $order = "DESC";
 
-    function getAll() {
+    function getAllDetailPesanan() {
         $this->db->order_by($this->pk,$this->order);
         return $this->db->get_where($this->table_name)->result();
     }
     
-    function getAllBy($kondisi) {
+    function getAllDetailPesananBy($kondisi) {
         $query = $this->db->get_where($this->table_name, $kondisi);
         return $query->result();
+    }
+
+    function getAllPemesananBy($kondisi = "") {
+        
+        $this->db->select(
+            '   pemesanan.id_pesanan,
+                pemesanan.id_konsumen,
+                pemesanan.konsumen,
+                pemesanan.nama_barang,
+                pemesanan.kapasitas_muat,
+                pemesanan.tujuan,
+                pemesanan.jum_kontainer,
+                pemesanan.tipe,
+                pemesanan._20,
+                pemesanan._40,
+                pemesanan.tarif,
+                pemesanan.total_tarif,
+                pemesanan.tgl_pesan,
+                pemesanan.jadwal_kirim,
+                pemesanan.keterangan,
+                pemesanan.status_pengiriman,
+                pemesanan.is_tagihan,
+                (SELECT SUM(biaya_tambahan) FROM detail_pesanan WHERE pemesanan_id = pemesanan.id_pesanan) as biaya_tambahan,
+                pemesanan.total_tarif + (SELECT SUM(biaya_tambahan) FROM detail_pesanan WHERE pemesanan_id = pemesanan.id_pesanan) as total_tagihan
+                ', FALSE
+            );
+        if (!empty($kondisi)) {
+            $this->db->where($kondisi);
+        }
+        return $this->db->get('pemesanan')->result();
     }
     
     function getDetail($id) {
@@ -67,5 +97,33 @@ class M_DetailPesanan extends CI_Model {
                 (SELECT SUM(biaya_tambahan) FROM detail_pesanan WHERE pemesanan_id = "'.$id.'" )
                  as result
         ')->row()->result;
+    }
+
+    function getAllTagihan()
+    {
+        return $this->db->query('
+            SELECT
+                pemesanan.id_pesanan,
+                pemesanan.id_konsumen,
+                pemesanan.konsumen,
+                pemesanan.nama_barang,
+                pemesanan.kapasitas_muat,
+                pemesanan.tujuan,
+                pemesanan.jum_kontainer,
+                pemesanan.tipe,
+                pemesanan._20,
+                pemesanan._40,
+                pemesanan.tarif,
+                pemesanan.total_tarif,
+                pemesanan.tgl_pesan,
+                pemesanan.jadwal_kirim,
+                pemesanan.keterangan,
+                pemesanan.status_pengiriman,
+                pemesanan.is_tagihan,
+                (SELECT SUM(biaya_tambahan) FROM detail_pesanan WHERE pemesanan_id = pemesanan.id_pesanan) as biaya_tambahan,
+                pemesanan.total_tarif + (SELECT SUM(biaya_tambahan) FROM detail_pesanan WHERE pemesanan_id = pemesanan.id_pesanan) as total_tagihan
+                FROM
+                pemesanan
+        ')->result();
     }
 }

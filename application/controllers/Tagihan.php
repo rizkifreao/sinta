@@ -8,6 +8,7 @@ class Tagihan extends CI_Controller
     {
         parent::__construct();
         $this->load->database();
+        date_default_timezone_set("Asia/Jakarta");
         if ($this->ion_auth->is_admin()) {
             $this->path = "admin";
         }else {
@@ -19,9 +20,9 @@ class Tagihan extends CI_Controller
     public function index()
     {
         if ($this->ion_auth->is_admin()) {
-            $data['tagihan'] = $this->M_Pesanan->getAllBy(
+            $data['tagihan'] = $this->getTagihan(
                 array(
-                    'is_tagihan' => 1, 
+                    'is_tagihan' => 1,
                 )
             );
         }else{
@@ -35,6 +36,11 @@ class Tagihan extends CI_Controller
         $this->template->display($this->path."/tagihan/index",$data);
     }
 
+    public function getTagihan($kondisi = "")
+    {
+        return $this->M_DetailPesanan->getAllPemesananBy($kondisi);
+    }
+
     public function detail($id)
     {
         $data['pemesanan'] = $pemesanan = $this->M_Pesanan->getDetail($id);
@@ -46,6 +52,11 @@ class Tagihan extends CI_Controller
 
         // echo $this->M_DetailPesanan->CountBiaya($id);
     }
+
+    public function tester()
+    {
+        echo json_encode($this->M_DetailPesanan->getAllPemesananBy());
+    }
     
     public function test()
     {
@@ -55,5 +66,14 @@ class Tagihan extends CI_Controller
         $harga = 200000;
 
         echo $nilai;
+    }
+
+    public function testPDF()
+    {
+        $pdf = new FPDF();
+        $pdf->AddPage();
+        $pdf->SetFont('Arial','B',16);
+        $pdf->Cell(40,10,'TEST PDFFFFFF');
+        $pdf->Output();
     }
 }

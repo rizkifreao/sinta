@@ -106,7 +106,7 @@ class Pemesanan extends CI_Controller
         $jum_pesanan = $this->input->post('jum_kontainer',TRUE);
         $data = array(
             'id_konsumen' => $this->session->userdata('konsumen_id'),
-            'konsumen' => $this->M_Konsumen->getDetail($this->session->userdata('konsumen_id'))->nama_konsumen,
+            'konsumen' => $this->M_Konsumen->getDetail($this->session->userdata('konsumen_id'))->perusahaan,
             'nama_barang' => $this->input->post('nama_barang',TRUE),
             'kapasitas_muat' => $this->input->post('kapasistas',TRUE).$this->input->post('satuan',TRUE),
             'tujuan' => $this->input->post('tujuan',TRUE),
