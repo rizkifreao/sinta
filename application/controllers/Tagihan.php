@@ -68,12 +68,9 @@ class Tagihan extends CI_Controller
         echo $nilai;
     }
 
-    public function testPDF()
+    public function cetakKwitansi()
     {
-        $pdf = new FPDF();
-        $pdf->AddPage();
-        $pdf->SetFont('Arial','B',16);
-        $pdf->Cell(40,10,'TEST PDFFFFFF');
-        $pdf->Output();
+        $data["filename"] = "invoice";
+        $this->template->view_pdf("pdf/helloWord",$data);
     }
 }

@@ -54,11 +54,12 @@
                                             <td><?= rupiah($row->biaya_tambahan); ?></td>
                                             <td><?= rupiah($row->total_tagihan); ?></td>
                                             <td>
+                                                <a href="<?=site_url('tagihan/cetakKwitansi')?>" class="btn btn-default">Kwitansi</a>
                                                 <?php if($row->status_pengiriman == "PROSES" ):  ?>
-                                                    <button type="button" class="btn btn-info btn-sm margin-5 text-white" data-id="<?=$row->id_pesanan?>" data-toggle="modal" data-target="#detail_pesanan" onclick="getDetail(this)" id="add_detail">
+                                                    <!-- <button type="button" class="btn btn-info btn-sm margin-5 text-white" data-id="<?=$row->id_pesanan?>" data-toggle="modal" data-target="#detail_pesanan" onclick="getDetail(this)" id="add_detail">
                                                         <i class="far fa-file-archive"></i>
                                                         Buat Tagihan
-                                                    </button>
+                                                    </button> -->
 
                                                 <?php endif ?>
                                             </td>

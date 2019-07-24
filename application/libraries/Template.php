@@ -16,4 +16,9 @@ class Template {
         $this->_CI->load->view('template/template', $data);
     }
 
+    function view_pdf($template, $data = null) {
+        $data['_konten'] = $this->_CI->load->view("exports/".$template, $data, true);
+        $this->_CI->load->view('exports/templatePdf', $data);
+    }
+
 }
