@@ -44,11 +44,12 @@ class Tagihan extends CI_Controller
     public function detail($id)
     {
         $data['pemesanan'] = $pemesanan = $this->M_Pesanan->getDetail($id);
-        $data["detail_tagihan"] = $this->M_DetailPesanan->getAllBy("pemesanan_id = ".$id);
+        $data["detail_tagihan"] = $this->M_DetailPesanan->getAllDetailPesananBy("pemesanan_id = ".$id);
         $data['jumlah_biaya'] = $this->M_DetailPesanan->CountBiaya($pemesanan->id_pesanan);
         $data['total_biaya'] = $this->M_DetailPesanan->totalBiaya($pemesanan->id_pesanan);
         $data['total_tagihan'] = $this->M_DetailPesanan->TotalPerTagihan($pemesanan->id_pesanan);
         echo json_encode($data);
+        // echo $data->detail_tagihan;
 
         // echo $this->M_DetailPesanan->CountBiaya($id);
     }

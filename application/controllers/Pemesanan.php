@@ -111,7 +111,7 @@ class Pemesanan extends CI_Controller
             'kapasitas_muat' => $this->input->post('kapasistas',TRUE).$this->input->post('satuan',TRUE),
             'tujuan' => $this->input->post('tujuan',TRUE),
             'jum_kontainer' => $jum_pesanan,
-            'tipe'=>($U20) ? '"20' : '"40',
+            'tipe'=>($U20) ? "20'" : "40'",
             '_20' => $U20,
             '_40' => $U40,
             'tarif' => ($U20) ? $U20 : $U40,

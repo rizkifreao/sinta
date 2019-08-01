@@ -288,9 +288,9 @@ class Apdf extends FPDF
         $this->Cell(10,$heigth,"");
     }
 
-    function marginKonten($heigth=8)
+    function marginKonten($heigth=4,$border = "L")
     {
-        $this->Cell(5,$heigth,"");
+        $this->Cell(5,$heigth,"",$border,0);
     }
 
 }
