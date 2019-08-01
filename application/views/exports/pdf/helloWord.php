@@ -40,7 +40,7 @@
             $this->apdf->Cell(5,6,"",0,0);
             $this->apdf->Cell(30,6,"KEPADA, YTH   ",0,0);
             $this->apdf->SetFont('Times','B',10);
-            $this->apdf->Cell(135,6,": PT. KONSUMEN",0,2);
+            $this->apdf->Cell(135,6,": ".$this->M_Konsumen->getDetail($pemesanan->id_konsumen)->perusahaan,0,2);
         // end::SUBHEADER
 
         $this->apdf->Ln(2);
@@ -59,7 +59,7 @@
                     $this->apdf->Cell(30,4,"12-Feb-19",0,1);
 
         $this->apdf->SetFont('Times','B',9);
-        $this->apdf->Text(26,66,"INVOICE NO : 1200/11/18");
+        $this->apdf->Text(26,66,"INVOICE NO : ".$pemesanan->id_pesanan."/11/18");
 
         $this->apdf->marginKiri();
             $this->apdf->SetFont('Times','',9);
@@ -86,17 +86,18 @@
                 $this->apdf->marginKonten();
                 $this->apdf->Cell(30,4,"TRUCKING",0,0);
                 $this->apdf->Cell(20,4,":",0,0);
-                $this->apdf->Cell(75,4,"3 X 40'",0,0,"");
+                $this->apdf->Cell(75,4,$pemesanan->jum_kontainer." X ".$pemesanan->tipe,0,0,"");
                 $this->apdf->Cell(10,4,"Rp.","L",0,"R");
-                $this->apdf->Cell(30,4,"23,000.000","R",1,"R");
+                $this->apdf->Cell(30,4,rupiah($pemesanan->total_tarif),"R",1,"R");
 
-                for ($i=1; $i <= 6; $i++) { 
+                $i = 1;
+                foreach ($detail_tagihan as $row) {
                     if ($i < 2) {
                         $this->apdf->marginKiri();
                         $this->apdf->marginKonten();
-                        $this->apdf->Cell(30,4,"LIFT OFF",0,0);
+                        $this->apdf->Cell(30,4,"CONT NO",0,0);
                         $this->apdf->Cell(20,4,":",0,0);
-                        $this->apdf->Cell(75,4,"A11111$i",0,0);
+                        $this->apdf->Cell(75,4,$row->no_kontainer,0,0);
                         $this->apdf->Cell(10,4,"","L",0,"R");
                         $this->apdf->Cell(30,4,"","R",1,"R");
                     }else {
@@ -104,10 +105,11 @@
                         $this->apdf->marginKonten();
                         $this->apdf->Cell(30,4,"",0,0);
                         $this->apdf->Cell(20,4,"",0,0);
-                        $this->apdf->Cell(75,4,"A11111$i",0,0);
+                        $this->apdf->Cell(75,4,$row->no_kontainer,0,0);
                         $this->apdf->Cell(10,4,"","L",0,"R");
                         $this->apdf->Cell(30,4,"","R",1,"R");
                     }
+                    $i++;
                 }
 
                 // JARAK TENGAH
@@ -116,29 +118,29 @@
                         $this->apdf->Cell(125,10,"",0,0);
                         $this->apdf->Cell(40,10,"","LR",1,"C");
 
-                for ($i=1; $i <= 6; $i++) { 
+                for ($i=1; $i <= count($detail_tagihan); $i++) { 
                     if ($i < 2) {
                         $this->apdf->marginKiri();
                         $this->apdf->marginKonten();
                         $this->apdf->Cell(30,4,"LIFT OFF",0,0);
                         $this->apdf->Cell(20,4,":",0,0);
-                        $this->apdf->Cell(75,4,"Rp. 20000$i",0,0);
+                        $this->apdf->Cell(75,4,"Rp. ".rupiah($detail_tagihan[$i]->biaya_tambahan),0,0);
                         $this->apdf->Cell(10,4,"","L",0,"R");
                         $this->apdf->Cell(30,4,"","R",1,"R");
-                    }else if($i == 6) {
+                    }else if($i == count($detail_tagihan) ) {
                         $this->apdf->marginKiri();
                         $this->apdf->marginKonten();
                         $this->apdf->Cell(30,4,"",0,0);
                         $this->apdf->Cell(20,4,"",0,0);
-                        $this->apdf->Cell(75,4,"Rp. 20000$i",0,0);
+                        $this->apdf->Cell(75,4,"Rp. ".rupiah($detail_tagihan[$i-1]->biaya_tambahan),0,0);
                         $this->apdf->Cell(10,4,"Rp.","L",0,"R");
-                        $this->apdf->Cell(30,4,"60000","R",1,"R");
+                        $this->apdf->Cell(30,4,rupiah($total_biaya),"R",1,"R");
                     }else {
                         $this->apdf->marginKiri();
                         $this->apdf->marginKonten();
                         $this->apdf->Cell(30,4,"",0,0);
                         $this->apdf->Cell(20,4,"",0,0);
-                        $this->apdf->Cell(75,4,"Rp. 20000$i",0,0);
+                        $this->apdf->Cell(75,4,"Rp. ".rupiah($detail_tagihan[$i]->biaya_tambahan),0,0);
                         $this->apdf->Cell(10,4,"","L",0,"R");
                         $this->apdf->Cell(30,4,"","R",1,"R");
                     }
@@ -155,7 +157,7 @@
                     $this->apdf->SetFont('Times','B',9);
                     $this->apdf->Cell(130,6,"TOTAL",1,0,"C");
                     $this->apdf->Cell(10,6,"Rp.","TB",0,"R");
-                    $this->apdf->Cell(30,6,"23.000.000","RTB",1,"R");
+                    $this->apdf->Cell(30,6,rupiah($total_tagihan),"RTB",1,"R");
 
             // endTABEL KONTEN
         // end::TABEL
@@ -170,7 +172,7 @@
         $this->apdf->marginKiri();
         $this->apdf->marginKonten(4,"");
         $this->apdf->SetFont('Times','BI',9);
-        $this->apdf->Cell(165,6,terbilang(23000000),1,0,"C");
+        $this->apdf->Cell(165,6,terbilang($total_tagihan),1,0,"C");
         
         // KETERANGAN
         $this->apdf->Ln(20);

@@ -69,9 +69,22 @@ class Tagihan extends CI_Controller
         echo $nilai;
     }
 
-    public function cetakKwitansi()
+    public function cetakKwitansi($id)
     {
-        $data["filename"] = "invoice";
-        $this->template->view_pdf("pdf/helloWord",$data);
+        $id_pemesanan = $this->M_Pesanan->getDetail($id);
+        
+        if (!empty($id_pemesanan)) {
+            $data['pemesanan'] = $pemesanan = $this->M_Pesanan->getDetail($id);
+            $data["detail_tagihan"] = $this->M_DetailPesanan->getAllDetailPesananBy("pemesanan_id = ".$id);
+            $data['jumlah_biaya'] = $this->M_DetailPesanan->CountBiaya($pemesanan->id_pesanan);
+            $data['total_biaya'] = $this->M_DetailPesanan->totalBiaya($pemesanan->id_pesanan);
+            $data['total_tagihan'] = $this->M_DetailPesanan->TotalPerTagihan($pemesanan->id_pesanan);
+            $data["filename"] = "invoice";
+            $this->template->view_pdf("pdf/helloWord",$data);
+        }else {
+            $this->session->set_flashdata('alert', error("Data tidak ditemukan"));
+            redirect('tagihan');
+        }
+        
     }
 }
