@@ -48,18 +48,18 @@
         $this->apdf->marginKiri();
             $this->apdf->SetFont('Times','',9);
             $this->apdf->Cell(107,8,"",0,0);
-                $this->apdf->Cell(25,8,"REMARKS",0,0);
-                    $this->apdf->Cell(2,8,":",0,0);
-                    $this->apdf->Cell(30,8,"IMPORT",0,1);
+                $this->apdf->Cell(25,8,"",0,0);
+                    $this->apdf->Cell(2,8,"",0,0);
+                    $this->apdf->Cell(30,8,"",0,1);
                     
         $this->apdf->marginKiri();
             $this->apdf->Cell(107,3,"",0,0);
                 $this->apdf->Cell(25,4,"TANGGAL",0,0);
                 $this->apdf->Cell(2,4,":",0,0);
-                    $this->apdf->Cell(30,4,"12-Feb-19",0,1);
+                    $this->apdf->Cell(30,4,date("d-M-y",strtotime($pemesanan->tgl_pesan)),0,1);
 
         $this->apdf->SetFont('Times','B',9);
-        $this->apdf->Text(26,66,"INVOICE NO : ".$pemesanan->id_pesanan."/11/18");
+        $this->apdf->Text(26,66,"INVOICE NO : ".$no_invoice);
 
         $this->apdf->marginKiri();
             $this->apdf->SetFont('Times','',9);
@@ -180,7 +180,7 @@
         $this->apdf->marginKiri();
         $this->apdf->marginKonten(4,"");
         $this->apdf->SetFont('Times','BI',9);
-        $this->apdf->Cell(165,6,terbilang($total_tagihan),1,0,"C");
+        $this->apdf->Cell(165,6,terbilang($total_tagihan)." Rupiah",1,0,"C");
         
         // KETERANGAN
         $this->apdf->Ln(20);

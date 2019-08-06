@@ -7,5 +7,5 @@ $this->apdf->setFilename($filename);
 echo $_konten;
 
 //Export
-$this->apdf->Output(str_replace(" ", "_",$filename).".pdf",'I');
+$this->apdf->Output($filename.".pdf",'I');
 ?>

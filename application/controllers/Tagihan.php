@@ -71,15 +71,17 @@ class Tagihan extends CI_Controller
 
     public function cetakKwitansi($id)
     {
-        $id_pemesanan = $this->M_Pesanan->getDetail($id);
+        $pemesanan = $this->M_Pesanan->getDetail($id);
+        $no_invoice = $pemesanan->id_pesanan."/".date("m/y", strtotime($pemesanan->tgl_pesan));
         
-        if (!empty($id_pemesanan)) {
+        if (!empty($pemesanan)) {
             $data['pemesanan'] = $pemesanan = $this->M_Pesanan->getDetail($id);
             $data["detail_tagihan"] = $this->M_DetailPesanan->getAllDetailPesananBy("pemesanan_id = ".$id);
             $data['jumlah_biaya'] = $this->M_DetailPesanan->CountBiaya($pemesanan->id_pesanan);
             $data['total_biaya'] = $this->M_DetailPesanan->totalBiaya($pemesanan->id_pesanan);
             $data['total_tagihan'] = $this->M_DetailPesanan->TotalPerTagihan($pemesanan->id_pesanan);
-            $data["filename"] = "invoice";
+            $data['no_invoice'] = $no_invoice;
+            $data["filename"] = $pemesanan->id_pesanan."-".date("m-y", strtotime($pemesanan->tgl_pesan))."_".$pemesanan->konsumen."_penagihan";
             $this->template->view_pdf("pdf/helloWord",$data);
         }else {
             $this->session->set_flashdata('alert', error("Data tidak ditemukan"));

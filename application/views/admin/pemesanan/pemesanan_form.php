@@ -132,13 +132,9 @@ $rutes = $this->M_Rute->getAllBy(array('id_konsumen' => $this->session->userdata
 
 <script>
   $(document).ready(function(){
-    $('.tanggal').datepicker({
-      format: 'dd/mm/yyyy',
-      autoclose: true,
-      todayHighlight: true
-    });
     $('#F20').prop('hidden', 'true');
     $('#F40').prop('hidden', 'true');
+    
     $("#tujuan").select2().on('change', function(){
       var id = $(this).find(":selected").val();
 

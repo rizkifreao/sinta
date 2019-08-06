@@ -16,6 +16,7 @@
     <!-- SELECT -->
     <link rel="stylesheet" type="text/css" href="<?= base_url('assets/sb-admin') ?>/assets/libs/select2/dist/css/select2.min.css">
     <link rel="stylesheet" type="text/css" href="<?= base_url('assets/sb-admin') ?>/assets/libs/bootstrap-datepicker/dist/css/bootstrap-datepicker.min.css">
+    <link rel="stylesheet" type="text/css" href="<?= base_url('assets/sb-admin') ?>/assets/libs/daterangepicker/css/daterangepicker.css">
 
     <link href="<?= base_url('assets/sb-admin') ?>/dist/css/style.min.css" rel="stylesheet">
     <link rel="stylesheet" type="text/css" href="<?= base_url('assets/sb-admin') ?>/assets/extra-libs/multicheck/multicheck.css">
@@ -72,6 +73,8 @@
     <script src="<?= base_url('assets/sb-admin') ?>/assets/libs/select2/dist/js/select2.full.min.js"></script>
     <script src="<?= base_url('assets/sb-admin') ?>/assets/libs/select2/dist/js/select2.min.js"></script>
     <script src="<?= base_url('assets/sb-admin') ?>/assets/libs/bootstrap-datepicker/dist/js/bootstrap-datepicker.min.js"></script>
+    <script src="<?= base_url('assets/sb-admin') ?>/assets/libs/moment/min/moment.min.js"></script>
+    <script src="<?= base_url('assets/sb-admin') ?>/assets/libs/daterangepicker/js/daterangepicker.js"></script>
     <!-- Bootstrap tether Core JavaScript -->
     <script src="<?= base_url('assets/sb-admin') ?>/assets/libs/popper.js/dist/umd/popper.min.js"></script>
     <script src="<?= base_url('assets/sb-admin') ?>/assets/libs/bootstrap/dist/js/bootstrap.min.js"></script>
@@ -176,6 +179,12 @@
     $(document).ready(function () {
         $("#notif").delay(350).slideDown('slow');
         $("#notif").alert().delay(3000).slideUp('slow');
+
+        $('.tanggal').datepicker({
+            format: 'dd/mm/yyyy',
+            autoclose: true,
+            todayHighlight: true
+        });
     });
     </script>
 
