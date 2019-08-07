@@ -61,25 +61,64 @@ class Laporan extends CI_Controller
     public function cetakPemesanan()
     {   
         $konsumenId = $this->input->post('perusahaan',TRUE);
+        $detail_konsumen = $this->M_Konsumen->getDetail($konsumenId);
         $tgl_awal = $this->input->post('value_from_start_date',TRUE);
         $tgl_akhir = $this->input->post('value_from_end_date',TRUE);
+
     
         if ($konsumenId == "all_konsumen") {
-            $this->template->view_pdf("pdf/LapPemesananAdmin",$data);
+            
+            $id_konsumens = array();
+            $konsumen = $this->M_Konsumen->getAll();
+            $data['konsumens'] = array();
+            
+            foreach ($konsumen as $key) {
+                array_push($data['konsumens'],
+                    array(
+                        'perusahaan' => $this->M_Konsumen->getDetail($key->id_konsumen)->perusahaan, 
+                        'jumlah_pemesanan' => count($this->M_Pesanan->getAllBy(array(
+                                                    'status_pengiriman !=' => 'BATAL',
+                                                    'id_konsumen' => $key->id_konsumen, 
+                                                    'tgl_pesan >=' => $tgl_awal,
+                                                    'tgl_pesan <=' => $tgl_akhir,
+                                                ))) , 
+                        'total_harga' => $this->M_Laporan->totalHargaBy($key->id_konsumen,$tgl_awal,$tgl_akhir), 
+                        'proses' => $this->M_Laporan->countBy(array(
+                            'status_pengiriman =' => 'PROSES',
+                            'id_konsumen' => $key->id_konsumen, 
+                            'tgl_pesan >=' => $tgl_awal,
+                            'tgl_pesan <=' => $tgl_akhir,
+                        )) ,
+                        'batal' => $this->M_Laporan->countBy(array(
+                            'status_pengiriman =' => 'BATAL',
+                            'id_konsumen' => $key->id_konsumen, 
+                            'tgl_pesan >=' => $tgl_awal,
+                            'tgl_pesan <=' => $tgl_akhir,
+                        )) , 
+                    )
+                );
+            }
+            echo json_encode($data);
+            // echo count($konsumen);
+            // $this->template->view_pdf("pdf/LapPemesananAll",$data);
         }else {
-            $data[pemesanan] = $this->M_Pesanan->getAllBy(array(
+            $data['pemesanan'] = $this->M_Pesanan->getAllBy(array(
                 'status_pengiriman !=' => 'BATAL',
                 'id_konsumen' => $konsumenId, 
                 'tgl_pesan >=' => $tgl_awal,
                 'tgl_pesan <=' => $tgl_akhir,
             ));
-            $data["filename"] = "invoice";
-            if ($tgl_awal == $tgl_akhir) {
-                $data["judul"] = "Laporan Pemesanan Harian";
-            }else {
+            $data["filename"] = date('dmy',strtotime($tgl_awal))."-".date('dmy',strtotime($tgl_akhir))."_".$detail_konsumen->perusahaan."_pemesanan";
+            $data["detail_konsumen"] = $detail_konsumen;
+            $data["tgl_awal"] = $tgl_awal;
+            $data["tgl_akhir"] = $tgl_akhir;
+            if ($tgl_awal < $tgl_akhir) {
+                $data["jenis"] = "periode";
                 $data["judul"] = "Laporan Pemesanan Periode";
+            }else {
+                $data["jenis"] = "harian";
+                $data["judul"] = "Laporan Pemesanan Harian";
             }
-
             $this->template->view_pdf("pdf/lapPemesananKonsumen",$data);
         }
    
@@ -106,6 +145,6 @@ class Laporan extends CI_Controller
     {
         $id_invoice = "7/".date("m/y", strtotime("2019-07-14"));
 
-        echo $id_invoice;
+        echo tgl_indo("2019-07-14");
     }
 }

@@ -39,7 +39,7 @@
                                             </div>
                                     </div>
 
-                                    <button type="submit" class="btn btn-default">Cetak Laporan</button>
+                                    <button type="submit" class="btn btn-default" target="_BLANK"><i class="mdi mdi-arrow-down-bold-circle"></i>Download Laporan</button>
                                 </div>
                                 <!-- beign::KOLOM1 -->
                                 <div class="col-md-6">
@@ -50,7 +50,6 @@
                                             <?php foreach ($konsumens as $key ) :?>
                                             <option value="<?=$key->id_konsumen?>"><?=$key->perusahaan?></option>
                                             <?php endforeach; ?>
-                                            <option value="8">Perusahaan Samsul</option>
                                         </select>
                                     </div>
                                 </div>

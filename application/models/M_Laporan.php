@@ -2,20 +2,6 @@
 
 class M_Laporan extends CI_Model {
 
-    var $table_name = "detail_pesanan";
-    var $pk = "id";
-    var $order = "DESC";
-
-    function getAllDetailPesanan() {
-        $this->db->order_by($this->pk,$this->order);
-        return $this->db->get_where($this->table_name)->result();
-    }
-    
-    function getAllDetailPesananBy($kondisi) {
-        $query = $this->db->get_where($this->table_name, $kondisi);
-        return $query->result();
-    }
-
     function getAllPemesananBy($kondisi = "") {
         
         $query = $this->db->query(
@@ -27,41 +13,18 @@ class M_Laporan extends CI_Model {
             );
         return $query->result();
     }
-    
-    function getDetail($id) {
-        $this->db->where($this->pk, $id);
-        $query = $this->db->get($this->table_name);
-        return $query->row();
-    }
 
-    function insert($data) {
-        $this->db->insert($this->table_name, $data);
-    }
-
-    public function bulk_insert($data)
+    function countBy($kondisi)
     {
-        try {
-            $this->db->insert_batch($this->table_name, $data);
-        } catch (\Throwable $th) {
-            echo $th;
-        }
-    }
-    
-    function update($id, $data) {
-        $this->db->where($this->pk, $id);
-        $this->db->update($this->table_name, $data);
-    }
-    
-    function delete($id) {
-        $this->db->where($this->pk, $id);
-        $this->db->delete($this->table_name);
+        $query = $this->db->get_where("pemesanan", $kondisi);
+        return $query->num_rows();
     }
 
-    function TotPesananByKonsumen($kondisi)
+    function totalHargaBy($id,$tgl_awal,$tgl_akhir)
     {
         return $this->db->query('
-            SELECT (SELECT COUNT(*) FROM pemesanan'.$kondisi.') AS total_pesanan
-        ')->row()->total_pesanan;
+            SELECT (SELECT SUM(total_tarif) FROM pemesanan WHERE id_konsumen = '.$id.' AND status_pengiriman != "BATAL" AND tgl_pesan >= "'.$tgl_awal.'" AND tgl_pesan <= "'.$tgl_akhir.'") as total_harga
+        ')->row()->total_harga;
     }
 
     function totalBiaya($id)
