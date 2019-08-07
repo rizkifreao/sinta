@@ -27,11 +27,18 @@ class M_Laporan extends CI_Model {
         ')->row()->total_harga;
     }
 
-    function totalBiaya($id)
+    function totalBiayaKonsumen($id,$tgl_awal,$tgl_akhir)
     {
         return $this->db->query('
-            SELECT (SELECT SUM(biaya_tambahan) FROM detail_pesanan WHERE pemesanan_id = "'.$id.'") as TotalBiaya
-        ')->row()->TotalBiaya;
+            SELECT (
+                SELECT
+                SUM(detail_pesanan.biaya_tambahan)
+                FROM
+                pemesanan
+                JOIN detail_pesanan ON detail_pesanan.pemesanan_id = pemesanan.id_pesanan
+                WHERE pemesanan.id_konsumen = '.$id.' AND status_pengiriman != "BATAL" AND pemesanan.tgl_pesan >= "'.$tgl_awal.'" AND pemesanan.tgl_pesan <= "'.$tgl_akhir.'"
+            ) AS total_biaya
+        ')->row()->total_biaya;
     }
 
     function TotalPerTagihan($id)

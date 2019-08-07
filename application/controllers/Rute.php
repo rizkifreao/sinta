@@ -75,7 +75,7 @@ class Rute extends CI_Controller
             // Data ditampung untuk di masukan ke database
             $data = array(
                 'id_konsumen' => $this->input->post('id_konsumen',TRUE),
-                'tujuan' => $this->input->post('tujuan',TRUE),
+                'tujuan' => strtoupper($this->input->post('tujuan',TRUE)),
                 '_20' => $this->input->post('U20',TRUE),
                 '_40' => $this->input->post('U40',TRUE),
             );

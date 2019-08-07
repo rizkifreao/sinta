@@ -63,13 +63,14 @@
         $this->apdf->Cell(30,5,"Tujuan","TRB",0,"C");
         $this->apdf->Cell(15,5,"Jumlah","TRB",0,"C");
         $this->apdf->Cell(10,5,"Tipe","TRB",0,"C");
-        $this->apdf->Cell(25,5,"Tanggal Pesan","TRB",0,"C");
         $this->apdf->Cell(20,5,"Status","TRB",0,"C");
+        $this->apdf->Cell(25,5,"Tambahan","TRB",0,"C");
         $this->apdf->Cell(25,5,"Total Tarif","TRB",1,"C");
 
         $this->apdf->SetFont('Times','',9);
         $this->apdf->SetLineWidth(0.1);
         $no = 1;
+        $total_biaya = 0;
         $total = 0;
         foreach ($pemesanan as $key) {
             $this->apdf->marginKiri();
@@ -78,16 +79,23 @@
             $this->apdf->Cell(30,5,$key->tujuan,"BR",0,"L");
             $this->apdf->Cell(15,5,$key->jum_kontainer,"BR",0,"C");
             $this->apdf->Cell(10,5,$key->tipe,"BR",0,"C");
-            $this->apdf->Cell(25,5,tgl_indo($key->tgl_pesan),"BR",0,"C");
             $this->apdf->Cell(20,5,$key->status_pengiriman,"BR",0,"C");
+            $this->apdf->Cell(25,5,rupiah($this->M_DetailPesanan->totalBiaya($key->id_pesanan)),"BR",0,"R");
             $this->apdf->Cell(25,5,rupiah($key->total_tarif),"BR",1,"R");
+            $total_biaya += $this->M_DetailPesanan->totalBiaya($key->id_pesanan);
             $total += $key->total_tarif;
         }
         $this->apdf->SetFont('Times','B',9);
         $this->apdf->SetLineWidth(0.3);
         $this->apdf->marginKiri();
-        $this->apdf->Cell(130,7,"TOTAL",1,0,"C");
-        $this->apdf->Cell(45,7,"Rp. ".rupiah($total),1,1,"C");
+        $this->apdf->Cell(125,6,"TOTAL BIAYA TAMBAHAN",1,0,"C");
+        $this->apdf->Cell(50,6,"Rp. ".rupiah($total_biaya),1,1,"C");
+        $this->apdf->marginKiri();
+        $this->apdf->Cell(125,6,"TOTAL TARIF","LB",0,"C");
+        $this->apdf->Cell(50,6,"Rp. ".rupiah($total),"LBR",1,"C");
+        $this->apdf->marginKiri();
+        $this->apdf->Cell(125,6,"TOTAL HARGA","LB",0,"C");
+        $this->apdf->Cell(50,6,"Rp. ".rupiah($total+$total_biaya),"LBR",1,"C");
     
 
 ?>
