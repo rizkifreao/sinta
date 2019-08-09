@@ -10,6 +10,20 @@ class M_Konsumen extends CI_Model {
         $this->db->order_by($this->pk,$this->order);
         return $this->db->get_where($this->table_name)->result();
     }
+
+    function getAllArray() {
+        $this->db->select('*');
+        $this->db->from($this->table_name);
+        $array_keys_values = $this->db->get();
+
+        $hasil[''] = '- Pilih Perusahaan -';
+
+        foreach ($array_keys_values->result() as $row) {
+            $hasil[$row->id_konsumen] = $row->perusahaan;
+        }
+
+        return $hasil;
+}
     
     function getAllBy($kondisi) {
         $this->db->order_by($this->pk,$this->order);

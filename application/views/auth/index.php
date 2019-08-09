@@ -1,7 +1,7 @@
 <h1><?php echo lang('index_heading');?></h1>
 <p><?php echo lang('index_subheading');?></p>
 
-<div id="infoMessage"><?php echo $message;?></div>
+<!-- <div id="infoMessage"><?php echo $message;?></div> -->
 
 <table cellpadding=0 cellspacing=10>
 	<tr>

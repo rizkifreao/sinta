@@ -177,8 +177,8 @@
     
     <script type="text/javascript">
     $(document).ready(function () {
-        $("#notif").delay(350).slideDown('slow');
-        $("#notif").alert().delay(3000).slideUp('slow');
+        // $("#notif").delay(350).slideDown('slow');
+        // $("#notif").alert().delay(3000).slideUp('slow');
 
         $('.tanggal').datepicker({
             format: 'dd/mm/yyyy',

@@ -502,11 +502,13 @@ class Ion_auth_model extends CI_Model {
         $this->db->update($this->tables['tb_users'], $data, array('id' => $id));
 
         $return = $this->db->affected_rows() == 1;
-        if ($return)
+        if ($return){
             $this->set_message('deactivate_successful');
-        else
+            $this->session->set_flashdata('alert', success($this->messages()));
+        }else{
             $this->set_error('deactivate_unsuccessful');
-
+            $this->session->set_flashdata('alert', error($this->errors()));
+        }
         return $return;
     }
 

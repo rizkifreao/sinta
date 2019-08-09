@@ -20,9 +20,32 @@
     <div class="col-md-6" data-select2-id="16">
         <div class="card">
             <form class="form-horizontal" action="<?= base_url('auth/create_user') ?>" method="post">
-            <div class="text-red"><?php echo $message;?></div>
                 <div class="card-body">
-                    <h4 class="card-title">Form Buat Pengguna</h4>
+                    <div class="text-red"><?php echo $message;?></div>
+                    <h4 class="card-title">Form Tambah Pengguna</h4>
+                    <br>
+                    <br>
+                    <div class="form-group row">
+                    <!-- <label for="fname" class="col-sm-3  control-label col-form-label">Anggota dari grup</label> -->
+                    <label class="col-md-3">Anggota dari grup</label>
+                        <div class="col-md-9" id="pilih_group">
+                            <?php foreach ($groups as $group):?>
+                                <?php
+                                    $gID=$group['id'];
+                                    $checked = null;
+                                    $item = null;
+                                ?>
+                                <div class="custom-control custom-radio">
+                                    <input type="radio" class="custom-control-input" id="customControlValidation<?php echo $group['id'];?>" name="groups" value="<?php echo $group['id'];?>" required>
+                                    
+                                    <label class="custom-control-label" for="customControlValidation<?php echo $group['id'];?>">
+                                        <?php echo htmlspecialchars($group['name'],ENT_QUOTES,'UTF-8');?>
+                                    </label>
+                                </div>
+                            <?php endforeach?>
+                        </div>
+                    </div>
+
                     <div class="form-group row">
                         <label for="fname" class="col-sm-3  control-label col-form-label">Nama Depan</label>
                         <div class="col-sm-9">
@@ -51,11 +74,17 @@
                                    oninput="setCustomValidity('')" placeholder="example@example.com">
                         </div>
                     </div>
-                    <div class="form-group row">
-                        <label for="cono1" class="col-sm-3  control-label col-form-label">Nama Perusahaan</label>
+                    <div class="form-group row" id="pilih_PT">
+                        <label for="cono1" class="col-sm-3  control-label col-form-label">Perusahaan</label>
                         <div class="col-sm-9">
-                            <input type="text" class="form-control" name="name_toko" id="name_toko" required oninvalid="setCustomValidity('Email Kosong !')"
-                                   oninput="setCustomValidity('')" placeholder="Masukan Alamat email">
+                            <?php $konsumens = $this->M_Konsumen->getAll(); ?>
+                            <select name="name_toko" id="name_toko" class="form-control" required>
+                                <option value="">Pilih Perusahaan</option>
+                                <option value="admin">CV MJB</option>
+                                <?php foreach ($konsumens as $key):?>
+                                    <option value="<?= $key->id_konsumen ?>"><?= $key->perusahaan ?></option>
+                                <?php endforeach; ?>
+                            </select>
                         </div>
                     </div>
                     <div class="form-group row">
@@ -73,7 +102,6 @@
                                    oninput="setCustomValidity('')" placeholder="Ulangi Password">
                         </div>
                     </div>
-
                 </div>
                 <div class="border-top">
                     <div class="card-body">
@@ -87,3 +115,24 @@
 </div>
 </div>
 </div>
+
+<script>
+$(document).ready(function () {
+    $('#name_toko').select2();
+
+    $('#pilih_PT').prop('hidden', 'true');
+    $("#name_toko").attr("required", false); 
+    $('#pilih_PT').attr('disabled', 'disabled');
+
+    $('#pilih_group input[type=radio]').change(function(){
+       let id_group = $(this).val();
+        if (id_group == "1") {
+            $('#pilih_PT').prop('hidden', 'true');
+            $("#name_toko").attr("required", false); 
+            $('#pilih_PT').attr('disabled', 'disabled');           
+        }else{
+            $('#pilih_PT').prop('hidden', false);
+        }
+    })
+})
+</script>

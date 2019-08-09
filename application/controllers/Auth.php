@@ -49,7 +49,7 @@ class Auth extends CI_Controller {
             {
                 $this->data['tb_users'][$k]->groups = $this->ion_auth->get_users_groups($user->id)->result();
             }
-
+            // echo json_encode($this->data);
             $this->template->display('auth/member', $this->data);
         }
     }
@@ -310,11 +310,11 @@ class Auth extends CI_Controller {
 
         if ($activation) {
             // redirect them to the auth page
-            $this->session->set_flashdata('message', $this->ion_auth->messages());
-            redirect("auth", 'refresh');
+            $this->session->set_flashdata('alert', success($this->ion_auth->messages()));
+            redirect("auth/member", 'refresh');
         } else {
             // redirect them to the forgot password page
-            $this->session->set_flashdata('message', $this->ion_auth->errors());
+             $this->session->set_flashdata('alert', error($this->ion_auth->errors()));
             redirect("auth/forgot_password", 'refresh');
         }
     }
@@ -353,13 +353,37 @@ class Auth extends CI_Controller {
             }
 
             // redirect them back to the auth page
-            redirect('auth', 'refresh');
+            redirect('auth/member', 'refresh');
         }
+    }
+
+    public function test()
+    {
+        $groupData = $this->input->post('groups');
+        $groups = $this->ion_auth->groups()->result_array();
+        $currentGroups = $this->ion_auth->get_users_groups(24)->result();
+        $additional_data = array(
+            'first_name' => $this->input->post('first_name'),
+            'last_name' => $this->input->post('last_name'),
+            'id_konsumen' => ($groupData[0] == 1) ? $this->M_Sistem_setting->getDetail()->nama_perusahaan : $this->input->post('name_toko'),
+            // 'company' => $this->M_Konsumen->getDetail($this->input->post('name_toko'))->perusahaan,
+            'phone' => $this->input->post('phone'),
+            'username' => $this->input->post('username'),
+        );
+        $grup = $this->ion_auth->in_group(1,20);
+        $data['grups'] = $groups;
+        $data['currentGroups']= $currentGroups;
+        echo json_encode($data);
+        // echo $groupData[0];
+        // echo $this->session->userdata('user_id');
+
     }
 
     // create a new user
     function create_user() {
         $this->data['title'] = $this->lang->line('create_user_heading');
+
+        $groups = $this->ion_auth->groups()->result_array();
 
         if (!$this->ion_auth->logged_in() || !$this->ion_auth->is_admin()) {
             redirect('auth', 'refresh');
@@ -374,6 +398,7 @@ class Auth extends CI_Controller {
         $this->form_validation->set_rules('username', 'Nama Pengguna', 'trim|required|is_unique[tb_users.username]');
         $this->form_validation->set_rules('first_name', $this->lang->line('create_user_validation_fname_label'), 'required');
         $this->form_validation->set_rules('last_name', $this->lang->line('create_user_validation_lname_label'), 'required');
+        $this->form_validation->set_rules('groups', 'Grup', 'required');
         if ($identity_column !== 'email') {
             $this->form_validation->set_rules('identity', $this->lang->line('create_user_validation_identity_label'), 'required|is_unique[' . $tables['tb_users'] . '.' . $identity_column . ']');
             $this->form_validation->set_rules('email', $this->lang->line('create_user_validation_email_label'), 'required|valid_email');
@@ -389,25 +414,32 @@ class Auth extends CI_Controller {
             $email = strtolower($this->input->post('email'));
             $identity = ($identity_column === 'email') ? $email : $this->input->post('identity');
             $password = $this->input->post('password');
+            $groupData = $this->input->post('groups');
+            $groupIds[] = $groupData;
 
             $additional_data = array(
                 'first_name' => $this->input->post('first_name'),
                 'last_name' => $this->input->post('last_name'),
-                'company' => $this->input->post('name_toko'),
+                'id_konsumen' => ($groupData == 1) ? 0 : $this->input->post('name_toko'),
                 'phone' => $this->input->post('phone'),
                 'username' => $this->input->post('username'),
             );
         }
-        if ($this->form_validation->run() == true && $this->ion_auth->register($identity, $password, $email, $additional_data)) {
+        
+        if ($this->form_validation->run() == true && $this->ion_auth->register($identity, $password, $email, $additional_data,$groupIds)) {
             // check to see if we are creating the user
             // redirect them back to the admin page
-            $this->session->set_flashdata('message', $this->ion_auth->messages());
-            redirect("auth", 'refresh');
-        } else {
+
+            $this->session->set_flashdata('alert', success($this->ion_auth->messages()));
+            redirect("auth/member", 'refresh');
+        } 
+        else {
             // display the create user form
             // set the flash data error message if there is one
             $this->data['message'] = (validation_errors() ? validation_errors() : ($this->ion_auth->errors() ? $this->ion_auth->errors() : $this->session->flashdata('message')));
 
+            $this->data['groups'] = $groups;
+        
             $this->data['first_name'] = array(
                 'name' => 'first_name',
                 'id' => 'first_name',
@@ -568,6 +600,7 @@ class Auth extends CI_Controller {
         $this->form_validation->set_rules('last_name', $this->lang->line('edit_user_validation_lname_label'), 'required');
         $this->form_validation->set_rules('phone', $this->lang->line('edit_user_validation_phone_label'), 'required');
         $this->form_validation->set_rules('company', $this->lang->line('edit_user_validation_company_label'), 'required');
+        $this->form_validation->set_rules('groups', 'Grup', 'required');
 
         if (isset($_POST) && !empty($_POST)) {
             // do we have a valid request?
@@ -582,10 +615,12 @@ class Auth extends CI_Controller {
             }
 
             if ($this->form_validation->run() === TRUE) {
+                $groupData = $this->input->post('groups');
+
                 $data = array(
                     'first_name' => $this->input->post('first_name'),
                     'last_name' => $this->input->post('last_name'),
-                    'company' => $this->input->post('company'),
+                    'id_konsumen' => ($groupData == 1) ? 0 : $this->input->post('company'),
                     'phone' => $this->input->post('phone'),
                     'username' => $this->input->post('username'),
                 );
@@ -600,27 +635,26 @@ class Auth extends CI_Controller {
                 // Only allow updating groups if user is admin
                 if ($this->ion_auth->is_admin()) {
                     //Update the groups user belongs to
-                    $groupData = $this->input->post('groups');
 
                     if (isset($groupData) && !empty($groupData)) {
 
                         $this->ion_auth->remove_from_group('', $id);
 
-                        foreach ($groupData as $grp) {
-                            $this->ion_auth->add_to_group($grp, $id);
-                        }
+                        $this->ion_auth->add_to_group($groupData, $id);
+                        // foreach ($groupData as $grp) {
+                        // }
                     }
                 }
 
                 // check to see if we are updating the user
                 if ($this->ion_auth->update($user->id, $data)) {
                     // redirect them back to the admin page if admin, or to the base url if non admin
-                    $this->session->set_flashdata('message', $this->ion_auth->messages());
+                    $this->session->set_flashdata('alert', error($this->ion_auth->messages()));
                     if ($this->ion_auth->is_admin()) {
-                        $this->session->set_flashdata('alert', success("User berhasil di update"));
+                        $this->session->set_flashdata('alert', success($this->ion_auth->messages()));
                         redirect('auth/member');
                     } else {
-                        $this->session->set_flashdata('alert', success("Profil berhasil di update"));
+                        $this->session->set_flashdata('alert', success($this->ion_auth->messages()));
                         redirect('auth/profile/' . $id);
                     }
                 } else {
@@ -666,12 +700,8 @@ class Auth extends CI_Controller {
             'type' => 'text',
             'value' => $this->form_validation->set_value('username', $user->username),
         );
-        $this->data['company'] = array(
-            'name' => 'company',
-            'id' => 'company',
-            'type' => 'text',
-            'value' => $this->form_validation->set_value('company', $user->company),
-        );
+        $this->data['konsumens'] = $this->M_Konsumen->getAll();
+        $this->data['konsumens_selected'] = $this->form_validation->set_value('company', $user->id_konsumen);
         $this->data['phone'] = array(
             'name' => 'phone',
             'id' => 'phone',
@@ -839,10 +869,14 @@ class Auth extends CI_Controller {
     }
 
     function delete($id){
-        $this->load->model('Ion_auth_model');
-        $this->Ion_auth_model->delete_user($id);
-        $this->session->set_flashdata('alert', success("User berhasil di hapus"));
-        redirect('auth/member');
+        if ($this->session->userdata('user_id') == $id) {
+            $this->session->set_flashdata('alert', error("Tidak dapat menghapus akun yang sedang digunakan !"));
+            redirect("auth/member");
+        }else {
+            $this->load->model('Ion_auth_model');
+            $this->Ion_auth_model->delete_user($id);
+            $this->session->set_flashdata('alert', success("Akun berhasil di hapus"));
+            redirect('auth/member');
+        }
     }
-
 }
