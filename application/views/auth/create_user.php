@@ -113,9 +113,6 @@
         </div>
     </div>
 </div>
-</div>
-</div>
-
 <script>
 $(document).ready(function () {
     $('#name_toko').select2();

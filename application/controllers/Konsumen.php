@@ -14,14 +14,13 @@ class Konsumen extends CI_Controller
             $data['error'] = 'You must be an administrator to view this page.';
             return $this->template->display('errors/error_general',$data);
         }
-
         //memanggil tabel konsumen melalui model M_konsumen
         
     }
 
     public function index()
     {
-        $data['konsumens'] = $this->M_Konsumen->getAll();
+        $data['konsumens'] = $this->M_Konsumen->getAllBy(array('is_delete' => 0, ));
         $this->template->display('admin/konsumen/index',$data);
     }
 
@@ -54,7 +53,7 @@ class Konsumen extends CI_Controller
             }
         }else {
             $data = array(
-            'page_title' => 'Tambah Konsumen',
+            'page_title' => 'Pendaftaran MOU',
             'action' => site_url('konsumen/add'),
 			'nama_konsumen' => set_value('nama_konsumen'),
             'id_konsumen' => set_value('id_konsumen'),
@@ -110,16 +109,16 @@ class Konsumen extends CI_Controller
             $data = array(
                 'nama_konsumen' => $this->input->post('nama_konsumen',TRUE),
                 'id_konsumen' => $this->input->post('id_konsumen',TRUE),
-                'perusahaan' => $this->input->post('perusahaan',TRUE),
+                'perusahaan' => strtoupper($this->input->post('perusahaan',TRUE)),
                 'jabatan' => $this->input->post('jabatan',TRUE),
                 'npwp' => $this->input->post('npwp',TRUE),
                 'alamat' => $this->input->post('alamat',TRUE),
                 'dok_MOU' => (!empty($mou)) ? $mou : NULL,
             );
-            $this->M_Konsumen->insert($data);
+            $id = $this->M_Konsumen->insert($data);
             $this->uploadDok($this->M_Konsumen->getLast()->id_konsumen,$dok_MOU);
             $this->session->set_flashdata('alert', success("Konsumen baru berhasil di simpan"));
-            redirect(site_url('konsumen'));
+            redirect(site_url('mou/rute/'.$id));
         }
     }
 
@@ -134,7 +133,7 @@ class Konsumen extends CI_Controller
             $data = array(
             'nama_konsumen' => $this->input->post('nama_konsumen',TRUE),
             'id_konsumen' => $this->input->post('id_konsumen',TRUE),
-            'perusahaan' => $this->input->post('perusahaan',TRUE),
+            'perusahaan' => strtoupper($this->input->post('perusahaan',TRUE)),
             'jabatan' => $this->input->post('jabatan',TRUE),
             'npwp' => $this->input->post('npwp',TRUE),
             'alamat' => $this->input->post('alamat',TRUE),
@@ -154,30 +153,44 @@ class Konsumen extends CI_Controller
         $row = $this->M_Konsumen->getDetail($id);
 
         if ($row) {
+            $data = array('is_delete' => 1 );
             $this->M_Rute->deleteBy('id_konsumen',$id);
-            $this->M_Konsumen->delete($id);
+            $this->M_Konsumen->update($id,$data);
             $this->session->set_flashdata('alert', success("Data berhasil dihapus"));
             redirect(site_url('konsumen'));
         } else {
-            $this->M_Konsumen->set_flashdata('alert', error("Data tidak ditemukan !"));
+            $this->session->set_flashdata('alert', error("Data tidak ditemukan !"));
             redirect(site_url('konsumen'));
         }
     }
 
     public function detail($id)
     {
-        $data['konsumens'] = $this->M_Konsumen->getDetail($id);
-        $data['rutes'] = $this->M_Rute->getAllBy("id_konsumen = ".$id);
-        $data['forms'] =  array(
-            'page_title' => 'Tambah Rute',
-            'action' => site_url('rute/add'),
-			'tujuan' => set_value('tujuan'),
-			'id_konsumen' => set_value('id_konsumen'),
-            'id_rute' => set_value('id_rute'),
-			'U20' => set_value('U20'),
-			'U40' => set_value('U40'),
-        );
-        $this->template->display("admin/konsumen/detail",$data);
+        
+        if ($this->M_Konsumen->getDetailBy(array('is_delete' => 0 , 'id_konsumen' => $id )) != null) {
+            $data['konsumens'] = $this->M_Konsumen->getDetail($id);
+            $data['rutes'] = $this->M_Rute->getAllBy("id_konsumen = ".$id);
+            $data['forms'] =  array(
+                    'page_title' => 'Tambah Rute',
+                    'action' => site_url('rute/add'),
+                    'tujuan' => set_value('tujuan'),
+                    'id_konsumen' => set_value('id_konsumen'),
+                    'id_rute' => set_value('id_rute'),
+                    'U20' => set_value('U20'),
+                    'U40' => set_value('U40'),
+                );
+            if ($this->M_Konsumen->getDetail($id)) {
+                $this->template->display("admin/konsumen/detail",$data);
+            }else{
+                $this->session->set_flashdata('alert', error("Data tidak ditemukan !"));
+                redirect('konsumen');
+            }
+        }else{
+            $this->session->set_flashdata('alert', error("Data tidak ditemukan !"));
+            redirect('konsumen');
+        }
+        
+        
     }
 
     private function _validation()

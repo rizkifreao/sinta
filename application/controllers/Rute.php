@@ -85,27 +85,27 @@ class Rute extends CI_Controller
                 
                 if (empty($this->input->post('tujuan',TRUE))) {
                     $this->session->set_flashdata('alert', error("Kolom Tujuan tidak boleh kosong !"));
-                    redirect(site_url('konsumen/detail/'.$this->input->post('id_konsumen',TRUE)));
+                    redirect(site_url('mou/rute/'.$this->input->post('id_konsumen',TRUE)));
                 }
                 switch ($tipe) {
                     case '20':
                             if (empty($this->input->post('U20',TRUE))) {
                                 $this->session->set_flashdata('alert', error("Kolom Harga Type 20 tidak boleh kosong !"));
-                                redirect(site_url('konsumen/detail/'.$this->input->post('id_konsumen',TRUE)));
+                                redirect(site_url('mou/rute/'.$this->input->post('id_konsumen',TRUE)));
                             }
                             $this->M_Rute->update($id,$data);
                             $this->session->set_flashdata('alert', success("Rute berhasil diperbaharui"));
-                            redirect(site_url('konsumen/detail/'.$this->input->post('id_konsumen',TRUE)));
+                            redirect(site_url('mou/rute/'.$this->input->post('id_konsumen',TRUE)));
                         break;
                     
                     case '40':
                             if (empty($this->input->post('U40',TRUE))) {
                                 $this->session->set_flashdata('alert', error("Kolom Harga Type 40 tidak boleh kosong !"));
-                                redirect(site_url('konsumen/detail/'.$this->input->post('id_konsumen',TRUE)));
+                                redirect(site_url('mou/rute/'.$this->input->post('id_konsumen',TRUE)));
                             }
                             $this->M_Rute->update($id,$data);
                             $this->session->set_flashdata('alert', success("Rute berhasil diperbaharui"));
-                            redirect(site_url('konsumen/detail/'.$this->input->post('id_konsumen',TRUE)));
+                            redirect(site_url('mou/rute/'.$this->input->post('id_konsumen',TRUE)));
                         break;
                 }
                 
@@ -113,27 +113,27 @@ class Rute extends CI_Controller
 
                 if (empty($this->input->post('tujuan',TRUE))) {
                     $this->session->set_flashdata('alert', error("Kolom Tujuan tidak boleh kosong !"));
-                    redirect(site_url('konsumen/detail/'.$this->input->post('id_konsumen',TRUE)));
+                    redirect(site_url('mou/rute/'.$this->input->post('id_konsumen',TRUE)));
                 }
                 switch ($tipe) {
                     case '20':
                             if (empty($this->input->post('U20',TRUE))) {
                                 $this->session->set_flashdata('alert', error("Kolom Harga Type 20 tidak boleh kosong !"));
-                                redirect(site_url('konsumen/detail/'.$this->input->post('id_konsumen',TRUE)));
+                                redirect(site_url('mou/rute/'.$this->input->post('id_konsumen',TRUE)));
                             }
                             $this->M_Rute->insert($data);
                             $this->session->set_flashdata('alert', success("Rute baru berhasil di simpan"));
-                            redirect(site_url('konsumen/detail/'.$this->input->post('id_konsumen',TRUE)));
+                            redirect(site_url('mou/rute/'.$this->input->post('id_konsumen',TRUE)));
                         break;
                     
                     case '40':
                             if (empty($this->input->post('U40',TRUE))) {
                                 $this->session->set_flashdata('alert', error("Kolom Harga Type 40 tidak boleh kosong !"));
-                                redirect(site_url('konsumen/detail/'.$this->input->post('id_konsumen',TRUE)));
+                                redirect(site_url('mou/rute/'.$this->input->post('id_konsumen',TRUE)));
                             }
                             $this->M_Rute->insert($data);
                             $this->session->set_flashdata('alert', success("Rute baru berhasil di simpan"));
-                            redirect(site_url('konsumen/detail/'.$this->input->post('id_konsumen',TRUE)));
+                            redirect(site_url('mou/rute/'.$this->input->post('id_konsumen',TRUE)));
                         break;
                 }
             }
@@ -148,10 +148,10 @@ class Rute extends CI_Controller
         if ($row) {
             $this->M_Rute->delete($id);
             $this->session->set_flashdata('alert', success("Data berhasil dihapus"));
-            redirect(site_url('konsumen/detail/'.$konsumens));
+            redirect(site_url('mou/rute/'.$konsumens));
         } else {
             $this->session->set_flashdata('alert', error("Data tidak ditemukan !"));
-            redirect(site_url('konsumen/detail/'.$konsumens));
+            redirect(site_url('mou/rute/'.$konsumens));
         }
     }
 }

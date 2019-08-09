@@ -22,7 +22,7 @@
                 <div class="col-md-12">
                     <div class="box box-primary">
                         <div class='box-header with-border'>
-                            <h3><a href="<?php echo base_url('konsumen/add'); ?>" class="btn btn-primary btn-small"><i class="glyphicon glyphicon-plus"></i> + Tambah Data </a></h3>
+                            <!-- <h3><a href="<?php echo base_url('konsumen/add'); ?>" class="btn btn-primary btn-small"><i class="glyphicon glyphicon-plus"></i> + Tambah Data </a></h3> -->
                         </div>
                         <hr>
                         <div class="box-body table-responsive">

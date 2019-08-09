@@ -1,4 +1,5 @@
 <?php 
+    $sistem = $this->M_Sistem_setting->getDetail();
     $page_height = 255;
     $page_width = 210;
     $konten = 170;
@@ -10,19 +11,19 @@
     // begin::HEADER
     $this->apdf->marginKiri();
         // begin::image
-        $this->apdf->image(base_url('assets/img/logos.png'),25,9,30,30);
+        $this->apdf->image(base_url('assets/img/'.$sistem->logo),25,9,30,30);
         $this->apdf->Cell(35);
             // begin::judul
             $this->apdf->SetFont('Times','B',19);
-            $this->apdf->Cell(135,8,"CV. MAJU BERSAMA RAHAYU",0,2);
+            $this->apdf->Cell(135,8,$sistem->nama_perusahaan,0,2);
             $this->apdf->SetFont('Times','',9);
             $this->apdf->Cell(30,5,'LAND TRANSPORTATION - FREIGHT FORWARDING - PROJECT CARGO',0,2);
             $this->apdf->SetFont('Times','',10);
-            $this->apdf->Cell(30,5,'Jl. Setrawangi IV No 24 Babakan Surabaya Kiaracondong Bandung 40215',0,2);
-            $this->apdf->Cell(30,5,'Telp    : (022) 20527470',0,2);
+            $this->apdf->Cell(30,5,$sistem->alamat,0,2);
+            $this->apdf->Cell(30,5,'Telp    : '.$sistem->telp,0,2);
             $this->apdf->Cell(15,5,'e-mail  : ',0,0);
             $this->apdf->SetFont('Times','I',10);
-            $this->apdf->Cell(15,5,'mbsmajubersama@gmail.com',0,1);
+            $this->apdf->Cell(15,5,$sistem->email,0,1);
     // end::HEADER
 
     // begin::KONTEN
@@ -66,7 +67,7 @@
             $this->apdf->Cell(107,4,"",0,0);
                 $this->apdf->Cell(25,4,"NPWP CV. MBS",0,0);
                 $this->apdf->Cell(2,4,":",0,0);
-                    $this->apdf->Cell(30,4,"74 309 766 9 424 000",0,1);
+                    $this->apdf->Cell(30,4,$sistem->npwp,0,1);
         
         // begin:TABEL DETAIL PESANAN
         $this->apdf->marginKiri();
@@ -195,7 +196,7 @@
 
         $this->apdf->marginKiri();
         $this->apdf->SetFont('Times','B',9);
-        $this->apdf->Cell(40,4,"Bank MANDIRI","L",0,"L");
+        $this->apdf->Cell(40,4,"Bank ".$sistem->bank,"L",0,"L");
         $this->apdf->Cell(40,4,"","R",1,"L");
 
         $this->apdf->marginKiri();
@@ -204,7 +205,7 @@
         $this->apdf->SetFont('Times','',9);
         $this->apdf->Cell(3,4,":",0,0,"R");
         $this->apdf->SetFont('Times','I',9);
-        $this->apdf->Cell(40,4,"BANDUNG","R",1,"L");
+        $this->apdf->Cell(40,4,$sistem->cabang_bank,"R",1,"L");
 
         $this->apdf->marginKiri();
         $this->apdf->SetFont('Times','I',9);
@@ -212,7 +213,7 @@
         $this->apdf->SetFont('Times','',9);
         $this->apdf->Cell(3,4,":",0,0,"R");
         $this->apdf->SetFont('Times','BI',9);
-        $this->apdf->Cell(40,4,"131-00-1383634-3","R",1,"L");
+        $this->apdf->Cell(40,4,$sistem->no_rekening,"R",1,"L");
 
         $this->apdf->marginKiri();
         $this->apdf->SetFont('Times','I',9);
@@ -220,7 +221,7 @@
         $this->apdf->SetFont('Times','',9);
         $this->apdf->Cell(3,4,":","B",0,"R");
         $this->apdf->SetFont('Times','I',9);
-        $this->apdf->Cell(40,4,"CV.MAJU BERSAMA","RB",1,"L");
+        $this->apdf->Cell(40,4,$sistem->atas_nama,"RB",1,"L");
         
         $this->apdf->Ln(5);
         $this->apdf->marginKiri();
@@ -239,7 +240,7 @@
         $this->apdf->marginKiri();
         $this->apdf->SetFont('Times','BU',9);
         $this->apdf->Cell(100,4,"",0,0,"C");
-        $this->apdf->Cell(50,4,"IMAN HERI ALFIANSYAH, S.Sos",0,1,"C");
+        $this->apdf->Cell(50,4,$sistem->direktur,0,1,"C");
 
         $this->apdf->marginKiri();
         $this->apdf->SetFont('Times','I',9);

@@ -29,6 +29,12 @@ class M_Konsumen extends CI_Model {
         $this->db->order_by($this->pk,$this->order);
         return $this->db->get_where($this->table_name, $kondisi)->result();
     }
+
+    function getDetailBy($kondisi) {
+        
+        // $query = $this->db->get($this->table_name);
+        return $this->db->get_where($this->table_name, $kondisi)->row();
+    }
     
     function getDetail($id) {
         $this->db->where($this->pk, $id);
@@ -38,6 +44,7 @@ class M_Konsumen extends CI_Model {
 
     function insert($data) {
         $this->db->insert($this->table_name, $data);
+        return $this->db->insert_id();
     }
     
     function update($id, $data) {

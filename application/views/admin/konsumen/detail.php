@@ -1,12 +1,12 @@
 <div class="page-breadcrumb">
     <div class="row">
         <div class="col-12 d-flex no-block align-items-center">
-            <h1>Detail</h1>
+            <h1>Tambah Rute</h1>
             <div class="ml-auto text-right">
                 <nav aria-label="breadcrumb">
                     <ol class="breadcrumb">
                         <li class="breadcrumb-item"><a href="<?= base_url('konsumen') ?> ">Konsumen</a></li>
-                        <li class="breadcrumb-item active" aria-current="page">Detail</li>
+                        <li class="breadcrumb-item active" aria-current="page">Rute</li>
                     </ol>
                 </nav>
             </div>
@@ -66,7 +66,18 @@
                                 <div class='form-group row'>
                                     <label for="lname"class="col-sm-3  control-label col-form-label">Dokumen MOU</label>
                                     <div class="col-sm-9">
-                                        <a href="<?=base_url('public/documents/dok_MOU')."/".$konsumens->dok_MOU ?>" target="_blank" class="btn btn-success"> Unduh &nbsp;<i class="mdi mdi-arrow-down-bold-circle"></i></a>
+                                    <?php
+                                        $url = $konsumens->dok_MOU;
+                                        $dokumen = "";
+                                        if ($url == "") {
+                                            $dokumen = "#";
+                                            // $this->session->set_flashdata('alert', error("Dokumen tidak ada"));
+                                        }else{
+                                            $dokumen = base_url('public/documents/dok_MOU')."/".$konsumens->dok_MOU;
+                                        }
+                                    
+                                    ?>
+                                        <a href="<?=$dokumen ?>" target="_blank" class="btn btn-success"> Unduh &nbsp;<i class="mdi mdi-arrow-down-bold-circle"></i></a>
                                     </div>  
                                 </div>
                             </div>
@@ -78,8 +89,9 @@
                         <!-- TABEL -->
                         <hr>
                         <div class='box-header with-border'>
-                        <h3><a href="<?=base_url('konsumen') ?>" class="btn btn-secondary ">< Kembali</a> <button onclick="clearForm()" type="button" class="btn btn-primary btn-small" data-toggle="modal" data-target="#tambah_modal">
-                                   + Tambah Data
+                        <h3><a href="<?=base_url('konsumen') ?>" class="btn btn-secondary "><i class="mdi mdi-keyboard-backspace"></i>Data Konsumen</a> 
+                        <button onclick="clearForm()" type="button" class="btn btn-primary btn-small" data-toggle="modal" data-target="#tambah_modal">
+                                    <i class="mdi mdi-library-plus"></i> Tambah Rute
                         </button></h3> 
                         </div>
                         <div class="box-body table-responsive">

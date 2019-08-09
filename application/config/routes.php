@@ -50,5 +50,7 @@ defined('BASEPATH') or exit('No direct script access allowed');
 |		my-controller/my-method	-> my_controller/my_method
  */
 $route['default_controller'] = 'Welcome';
+$route['mou/daftar'] = 'konsumen/add';
+$route['mou/rute/(:num)'] = 'konsumen/detail/$1';
 $route['404_override'] = 'Error';
 $route['translate_uri_dashes'] = false;

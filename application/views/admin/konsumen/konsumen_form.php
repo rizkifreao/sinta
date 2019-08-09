@@ -92,8 +92,8 @@
 
           <div class="border-top">
               <div class="card-body">
-              <button type="submit" class="btn btn-primary">Simpan</button> 
-              <a href="<?php echo site_url('konsumen') ?>" class="btn btn-secondary">Cancel</a>
+              <button type="submit" class="btn btn-primary"><i class="mdi mdi-content-save"></i> Simpan</button> 
+              <button type="button" onClick="javascript:history.go(-1)" class="btn btn-secondary">Batal</button>
               </div>
           </div>
       </form>

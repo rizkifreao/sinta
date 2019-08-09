@@ -10,7 +10,7 @@
     <meta name="author" content="Sinta">
     <!-- Favicon icon -->
     <link rel="icon" type="image/png" sizes="50x50" href="<?= base_url('assets/img') ?>/logos.png">
-    <title>Dashboard | Cv.Maju Bersama Sejahtera</title>
+    <title>Dashboard | <?=$this->M_Sistem_setting->getDetail()->nama_perusahaan?></title>
     <!-- Custom CSS -->
     <link href="<?= base_url('assets/sb-admin') ?>/assets/libs/flot/css/float-chart.css" rel="stylesheet">
     <!-- SELECT -->
@@ -22,6 +22,7 @@
     <link rel="stylesheet" type="text/css" href="<?= base_url('assets/sb-admin') ?>/assets/extra-libs/multicheck/multicheck.css">
     <link href="<?= base_url('assets/sb-admin') ?>/assets/libs/datatables.net-bs4/css/dataTables.bootstrap4.css" rel="stylesheet">
     <link href="<?= base_url('assets/sb-admin') ?>/assets/libs/toastr/build/toastr.min.css" rel="stylesheet">
+    <link href="<?= base_url('assets/sb-admin') ?>/assets/libs/chartjs/Chart.min.css" rel="stylesheet">
 
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -93,18 +94,15 @@
     <script src="<?= base_url('assets/sb-admin') ?>/assets/libs/select2/dist/js/select2.full.min.js"></script>
     <script src="<?= base_url('assets/sb-admin') ?>/assets/libs/select2/dist/js/select2.min.js"></script>
 
-    
-
-
     <!-- Charts js Files -->
-    <script src="<?= base_url('assets/sb-admin') ?>/assets/libs/flot/excanvas.js"></script>
-    <script src="<?= base_url('assets/sb-admin') ?>/assets/libs/flot/jquery.flot.js"></script>
+    <script src="<?= base_url('assets/sb-admin') ?>/assets/libs/chartjs/Chart.min.js"></script>
+    <!-- <script src="<?= base_url('assets/sb-admin') ?>/assets/libs/flot/jquery.flot.js"></script>
     <script src="<?= base_url('assets/sb-admin') ?>/assets/libs/flot/jquery.flot.pie.js"></script>
     <script src="<?= base_url('assets/sb-admin') ?>/assets/libs/flot/jquery.flot.time.js"></script>
     <script src="<?= base_url('assets/sb-admin') ?>/assets/libs/flot/jquery.flot.stack.js"></script>
     <script src="<?= base_url('assets/sb-admin') ?>/assets/libs/flot/jquery.flot.crosshair.js"></script>
     <script src="<?= base_url('assets/sb-admin') ?>/assets/libs/flot.tooltip/js/jquery.flot.tooltip.min.js"></script>
-    <script src="<?= base_url('assets/sb-admin') ?>/dist/js/pages/chart/chart-page-init.js"></script>
+    <script src="<?= base_url('assets/sb-admin') ?>/dist/js/pages/chart/chart-page-init.js"></script> -->
     <!-- TABLE js -->
     <script src="<?= base_url('assets/sb-admin') ?>/assets/extra-libs/multicheck/datatable-checkbox-init.js"></script>
     <script src="<?= base_url('assets/sb-admin') ?>/assets/extra-libs/multicheck/jquery.multicheck.js"></script>
