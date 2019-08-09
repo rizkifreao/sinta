@@ -60,8 +60,8 @@ class Pemesanan extends CI_Controller
             for ($i=1; $i <= $jumlah; $i++) { 
 
                 // VALIDASI TIDAK 7
-                if (strlen($this->input->post('no_kontainer'.$i)) !==7) {
-                    $this->session->set_flashdata('alert', error("No Kontainer di Pemesanan ".$i." tidak sama dengan 7 "));
+                if (strlen($this->input->post('no_kontainer'.$i)) !==7 && $this->input->post('biaya'.$i,TRUE) < 0) {
+                    $this->session->set_flashdata('alert', error("No Kontainer di Pemesanan ".$i." tidak valid"));
                     redirect('pemesanan');
                     break;
                 }else{

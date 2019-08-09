@@ -143,7 +143,7 @@ function getDetail(ini) {
                                     <div class="form-group row">
                                         <label for="fname" class="col-sm-3 text-right control-label col-form-label">No Kontainer</label>
                                         <div class="col-sm-9">
-                                            <input type="text" class="form-control" id="fname" name="no_kontainer`+i+`" placeholder="Masukan no kontainer">
+                                            <input type="text" class="form-control" id="fname" name="no_kontainer`+i+`" pattern=".{7,}" placeholder="Masukan no kontainer" required oninvalid="setCustomValidity('Kolom ini harus diisi !')" oninput="setCustomValidity('')">
                                         </div>
                                     </div>
                                 </div>
@@ -151,7 +151,7 @@ function getDetail(ini) {
                                     <div class="form-group row">
                                         <label for="fname" class="col-sm-3 text-right control-label col-form-label">No Seal</label>
                                         <div class="col-sm-9">
-                                            <input type="text" class="form-control" id="fname" name="no_seal`+i+`" placeholder="Masukan no seal">
+                                            <input type="text" class="form-control" id="fname" name="no_seal`+i+`" placeholder="Masukan no seal" required oninvalid="setCustomValidity('Kolom ini harus diisi !')" oninput="setCustomValidity('')">
                                         </div>
                                     </div>
                                 </div>
@@ -159,7 +159,7 @@ function getDetail(ini) {
                                     <div class="form-group row">
                                         <label for="fname" class="col-sm-4 text-right control-label col-form-label">Biaya Tambahan</label>
                                         <div class="col-sm-8">
-                                            <input type="text" class="form-control" id="fname" name="biaya`+i+`" placeholder="Masukan biaya">
+                                            <input type="number" min="0" class="form-control" id="fname" name="biaya`+i+`" placeholder="Masukan biaya" required>
                                         </div>
                                     </div>
                                 </div>
