@@ -12,7 +12,7 @@
     <link rel="icon" type="image/png" sizes="50x50" href="<?= base_url('assets/img') ?>/logos.png">
     <title>Dashboard | <?=$this->M_Sistem_setting->getDetail()->nama_perusahaan?></title>
     <!-- Custom CSS -->
-    <link href="<?= base_url('assets/sb-admin') ?>/assets/libs/flot/css/float-chart.css" rel="stylesheet">
+    <!-- <link href="<?= base_url('assets/sb-admin') ?>/assets/libs/flot/css/float-chart.css" rel="stylesheet"> -->
     <!-- SELECT -->
     <link rel="stylesheet" type="text/css" href="<?= base_url('assets/sb-admin') ?>/assets/libs/select2/dist/css/select2.min.css">
     <link rel="stylesheet" type="text/css" href="<?= base_url('assets/sb-admin') ?>/assets/libs/bootstrap-datepicker/dist/css/bootstrap-datepicker.min.css">
@@ -22,7 +22,7 @@
     <link rel="stylesheet" type="text/css" href="<?= base_url('assets/sb-admin') ?>/assets/extra-libs/multicheck/multicheck.css">
     <link href="<?= base_url('assets/sb-admin') ?>/assets/libs/datatables.net-bs4/css/dataTables.bootstrap4.css" rel="stylesheet">
     <link href="<?= base_url('assets/sb-admin') ?>/assets/libs/toastr/build/toastr.min.css" rel="stylesheet">
-    <link href="<?= base_url('assets/sb-admin') ?>/assets/libs/chartjs/Chart.min.css" rel="stylesheet">
+    <!-- <link href="<?= base_url('assets/sb-admin') ?>/assets/libs/chartjs/Chart.min.css" rel="stylesheet"> -->
 
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -71,8 +71,6 @@
 <body>
     <script src="<?= base_url('assets/sb-admin') ?>/assets/libs/jquery/dist/jquery.min.js"></script>
     <!-- SELECT2 -->
-    <script src="<?= base_url('assets/sb-admin') ?>/assets/libs/select2/dist/js/select2.full.min.js"></script>
-    <script src="<?= base_url('assets/sb-admin') ?>/assets/libs/select2/dist/js/select2.min.js"></script>
     <script src="<?= base_url('assets/sb-admin') ?>/assets/libs/bootstrap-datepicker/dist/js/bootstrap-datepicker.min.js"></script>
     <script src="<?= base_url('assets/sb-admin') ?>/assets/libs/moment/min/moment.min.js"></script>
     <script src="<?= base_url('assets/sb-admin') ?>/assets/libs/daterangepicker/js/daterangepicker.js"></script>
@@ -87,22 +85,17 @@
     <script src="<?= base_url('assets/sb-admin') ?>/dist/js/sidebarmenu.js"></script>
     <!--Custom JavaScript -->
     <script src="<?= base_url('assets/sb-admin') ?>/dist/js/custom.min.js"></script>
-    <!--This page JavaScript -->
-    <!-- <script src="<?= base_url('assets/sb-admin') ?>/dist/js/pages/dashboards/dashboard1.js"></script> -->
 
     <!-- SELECT2 -->
     <script src="<?= base_url('assets/sb-admin') ?>/assets/libs/select2/dist/js/select2.full.min.js"></script>
-    <script src="<?= base_url('assets/sb-admin') ?>/assets/libs/select2/dist/js/select2.min.js"></script>
+    <!-- <script src="<?= base_url('assets/sb-admin') ?>/assets/libs/select2/dist/js/select2.min.js"></script> -->
+    
+    <!-- Highcharts -->
+    <script src="<?= base_url('assets/sb-admin') ?>/assets/libs/highcharts/code/highcharts.js"></script>
+    <script src="<?= base_url('assets/sb-admin') ?>/assets/libs/highcharts/code/modules/exporting.js"></script>
+    <script src="<?= base_url('assets/sb-admin') ?>/assets/libs/highcharts/code/modules/export-data.js"></script>
 
-    <!-- Charts js Files -->
-    <script src="<?= base_url('assets/sb-admin') ?>/assets/libs/chartjs/Chart.min.js"></script>
-    <!-- <script src="<?= base_url('assets/sb-admin') ?>/assets/libs/flot/jquery.flot.js"></script>
-    <script src="<?= base_url('assets/sb-admin') ?>/assets/libs/flot/jquery.flot.pie.js"></script>
-    <script src="<?= base_url('assets/sb-admin') ?>/assets/libs/flot/jquery.flot.time.js"></script>
-    <script src="<?= base_url('assets/sb-admin') ?>/assets/libs/flot/jquery.flot.stack.js"></script>
-    <script src="<?= base_url('assets/sb-admin') ?>/assets/libs/flot/jquery.flot.crosshair.js"></script>
-    <script src="<?= base_url('assets/sb-admin') ?>/assets/libs/flot.tooltip/js/jquery.flot.tooltip.min.js"></script>
-    <script src="<?= base_url('assets/sb-admin') ?>/dist/js/pages/chart/chart-page-init.js"></script> -->
+   
     <!-- TABLE js -->
     <script src="<?= base_url('assets/sb-admin') ?>/assets/extra-libs/multicheck/datatable-checkbox-init.js"></script>
     <script src="<?= base_url('assets/sb-admin') ?>/assets/extra-libs/multicheck/jquery.multicheck.js"></script>

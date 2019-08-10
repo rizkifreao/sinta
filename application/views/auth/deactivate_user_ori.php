@@ -1,4 +1,19 @@
-<h1><?php echo lang('deactivate_heading');?></h1>
+<div class="page-breadcrumb">
+    <div class="row">
+        <div class="col-12 d-flex no-block align-items-center">
+            <h2><?php echo lang('deactivate_heading');?></h2>
+            <div class="ml-auto text-right">
+                <nav aria-label="breadcrumb">
+                    <ol class="breadcrumb">
+                        <li class="breadcrumb-item"><a href="<?= base_url('dashboard') ?> ">Home</a></li>
+                        <li class="breadcrumb-item active" aria-current="page">User</li>
+                    </ol>
+                </nav>
+            </div>
+        </div>
+    </div>
+</div>
+
 <p><?php echo sprintf(lang('deactivate_subheading'), $user->username);?></p>
 
 <?php echo form_open("auth/deactivate/".$user->id);?>

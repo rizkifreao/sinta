@@ -1,21 +1,24 @@
-<section class="content-header">
-    <h1>
-        <?php echo strtoupper(lang('deactivate_heading'));?>
-        <small><?php echo sprintf(lang('deactivate_subheading'), $user->username);?></small>
-    </h1>
-    <ol class="breadcrumb">
-        <li><a href="#"><i class="fa fa-suitcase"></i>Seting</a></li>
-        <li class="active"><?php echo lang('deactivate_heading');?></li>
-    </ol>
-</section>
-<section class="content">
+<div class="page-breadcrumb">
     <div class="row">
-        <!-- left column -->
-        <div class="col-md-12">
-            <!-- general form elements -->
-            <div class="box box-primary">
-                <div class="box-header">
-                <div class="col-md-5">
+        <div class="col-12 d-flex no-block align-items-center">
+            <h2><?php echo lang('deactivate_heading');?></h2>
+            <small><?php echo sprintf(lang('deactivate_subheading'), $user->username);?></small>
+            <div class="ml-auto text-right">
+                <nav aria-label="breadcrumb">
+                    <ol class="breadcrumb">
+                        <li class="breadcrumb-item"><a href="<?= base_url('dashboard') ?> ">Home</a></li>
+                        <li class="breadcrumb-item active" aria-current="page"><?php echo lang('deactivate_heading');?></li>
+                    </ol>
+                </nav>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="container-fluid">
+    <div class="col-md-6" data-select2-id="16">
+        <div class="card">
+            <div class="card-body">
                 <?php echo form_open("auth/deactivate/".$user->id);?>
 				  <p>
 				  	<?php echo lang('deactivate_confirm_y_label', 'confirm');?>
@@ -27,12 +30,11 @@
 				  <?php echo form_hidden($csrf); ?>
 				  <?php echo form_hidden(array('id'=>$user->id)); ?>
 
-				  <p><?php echo form_submit('submit', lang('deactivate_submit_btn'));?></p>
+				  <p><?php echo form_submit('submit', lang('deactivate_submit_btn'),'class="btn btn-primary"');?></p>
 
 				<?php echo form_close();?>
-                </div>
-                </div>
+                
             </div>
         </div>
     </div>
-</section>
+</div>

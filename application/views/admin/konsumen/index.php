@@ -1,7 +1,7 @@
 <div class="page-breadcrumb">
     <div class="row">
         <div class="col-12 d-flex no-block align-items-center">
-            <h1>Konsumen</h1>
+            <h2>Konsumen</h1>
             <div class="ml-auto text-right">
                 <nav aria-label="breadcrumb">
                     <ol class="breadcrumb">

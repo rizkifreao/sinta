@@ -37,6 +37,32 @@ class M_Pesanan extends CI_Model {
         $this->db->delete($this->table_name);
     }
 
+    function TotPesananBy($kondisi1,$kondisi2)
+    {
+        // TARIF TARIF
+        $this->db->select_sum('total_tarif');
+        $this->db->where($kondisi1);
+        $tot_tarif_konsumen = $this->db->get('pemesanan')->row()->total_tarif;
+
+        // $kondisi = array('pemesanan.id_konsumen' => 7,'month(tgl_pesan)' => 7,'year(tgl_pesan)'=> 2019 );
+        // BIAYA TOTAL
+        $this->db->select('SUM(detail_pesanan.biaya_tambahan) as tot_biaya FROM pemesanan',true);
+        $this->db->join('detail_pesanan', 'detail_pesanan.pemesanan_id = pemesanan.id_pesanan');
+        $this->db->where($kondisi2);
+        $tot_biaya_konsumen = $this->db->get()->row()->tot_biaya;
+
+        return $tot_tarif_konsumen + $tot_biaya_konsumen;
+
+    }
+
+    public function CountPesananBy($kondisi)
+    {
+        $this->db->order_by($this->pk,'DESC');
+        $this->db->where($kondisi);
+        $this->db->from("pemesanan");
+        return $this->db->count_all_results();
+    }
+
     public function updateStatus()
     {
         $this->db->query('UPDATE pemesanan SET status_pengiriman = "PROSES" where jadwal_kirim = "'.date('Y-m-d').'"');

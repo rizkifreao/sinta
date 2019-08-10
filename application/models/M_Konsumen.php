@@ -25,8 +25,8 @@ class M_Konsumen extends CI_Model {
         return $hasil;
 }
     
-    function getAllBy($kondisi) {
-        $this->db->order_by($this->pk,$this->order);
+    function getAllBy($kondisi, $by = 'DESC') {
+        $this->db->order_by($this->pk,$by);
         return $this->db->get_where($this->table_name, $kondisi)->result();
     }
 
