@@ -22,6 +22,7 @@
                 <div class="col-md-12">
                     <div class="box box-primary">
                         <form action="<?=$action?>" method="POST" autocomplete="off">
+                            <input type="hidden" id="perusahaan" value="<?= $this->session->userdata('konsumen_id')?>">
                             <div class="row">
                                 <!-- beign::KOLOM1 -->
                                 <div class="col-md-6">
@@ -42,17 +43,7 @@
                                     <button type="submit" class="btn btn-default" formtarget="_blank"><i class="mdi mdi-arrow-down-bold-circle"></i>Download Laporan</button>
                                 </div>
                                 <!-- beign::KOLOM1 -->
-                                <div class="col-md-6">
-                                    <div class="form-group">
-                                        <label for="lname"class="control-label col-form-label" >Konsumen</label>
-                                        <select id="perusahaan" name="perusahaan" class="form-control  custom-select" required> 
-                                            <option value="all_konsumen">Semua Konsumen</option>
-                                            <?php foreach ($konsumens as $key ) :?>
-                                            <option value="<?=$key->id_konsumen?>"><?=$key->perusahaan?></option>
-                                            <?php endforeach; ?>
-                                        </select>
-                                    </div>
-                                </div>
+                                
                             </div>
                         </form>
 
@@ -107,26 +98,9 @@
 </div>
 <script>
 $(document).ready(function() {
-    $('#tabel_laporan').DataTable({
-        language: {
-            emptyTable: "Tidak ada data yang tersedia pada tabel ini",
-            zeroRecords: "Tidak ada catatan yang cocok ditemukan",
-            info: "Menampilkan _START_ - _END_ dari _TOTAL_ baris",
-            infoEmpty: "Tidak ada yang ditampilkan",
-            search: "Cari:",
-            searchPlaceholder: 'Ketik untuk mencari...',
-            lengthMenu: "Tampilkan _MENU_ baris",
-            infoFiltered:   "(difilter dari _MAX_ total baris)",
-            paginate: {
-                first: "<<",
-                last: ">>",
-                next: $('html').attr('dir') == 'rtl' ? '&larr;' : '&rarr;',
-                previous: $('html').attr('dir') == 'rtl' ? '&rarr;' : '&larr;'
-            },
-        },
-    });
+    $('#tabel_laporan').DataTable(table_options);
 
-    $("#perusahaan").select2();
+    // $("#perusahaan").select2();
 
     var separator = ' - ', dateFormat = 'YYYY-MM-DD';
     var options = {
@@ -166,6 +140,7 @@ $(document).ready(function() {
         opens: "right"
     };
 
+    // SET FIELD TANGGAL
     $('[data-datepicker=separateRange]')
         .daterangepicker(options)
         .on('apply.daterangepicker' ,function(ev, picker) {
@@ -200,8 +175,9 @@ $(document).ready(function() {
             if(boolEnd) {
                 $('[name=daterangepicker_end]').focus();
             }
-        });
+    });
     
+    // EVENT KETIKA TANGGAL DIPILIH
     $('[data-datepicker=separateRange]').on('change', function (ev) {
         if ($('#tanggalPeriodeAkhir').val() != '' && $('#tanggalPeriodeAwal').val() != '') {
             var startDate = $('#tanggalPeriodeAwal').val().replace(/\//g, '');

@@ -19,11 +19,6 @@ class Pemesanan extends CI_Controller
 
     public function index()
     {
-        $data = array(
-            'form_title' => 'Form Pemesanan',
-            'action' => site_url('pemesanan/pesan'),
-        );
-
         if ($this->ion_auth->is_admin()) {
             $data["pemesanans"] = $this->M_Pesanan->getAllBy(array(
                 'status_pengiriman !=' => "BATAL",
@@ -35,6 +30,17 @@ class Pemesanan extends CI_Controller
             ));            
         }
         $this->template->display($this->path."/pemesanan/index", $data);
+    }
+
+    public function form_pesanan()
+    {
+        if (!$this->ion_auth->is_admin()) {
+            $data = array(
+                'form_title' => 'Form Pemesanan',
+                'action' => site_url('pemesanan/pesan'),
+            );
+            $this->template->display($this->path."/pemesanan/form_pesan", $data);
+        }
     }
 
     public function ruteJson($id){
@@ -101,36 +107,40 @@ class Pemesanan extends CI_Controller
 
     public function pesan()
     {
-        $U20 = $this->input->post('U20',TRUE);
-        $U40 = $this->input->post('U40',TRUE);
-        $jum_pesanan = $this->input->post('jum_kontainer',TRUE);
-        $data = array(
-            'id_konsumen' => $this->session->userdata('konsumen_id'),
-            'konsumen' => $this->M_Konsumen->getDetail($this->session->userdata('konsumen_id'))->perusahaan,
-            'nama_barang' => $this->input->post('nama_barang',TRUE),
-            'kapasitas_muat' => $this->input->post('kapasistas',TRUE).$this->input->post('satuan',TRUE),
-            'tujuan' => $this->input->post('tujuan',TRUE),
-            'jum_kontainer' => $jum_pesanan,
-            'tipe'=>($U20) ? "20'" : "40'",
-            '_20' => $U20,
-            '_40' => $U40,
-            'tarif' => ($U20) ? $U20 : $U40,
-            'total_tarif'=> ($U20) ? $U20 * $jum_pesanan : $U40 * $jum_pesanan,
-            'tgl_pesan' => date("Y-m-d"),
-            'jadwal_kirim' => $this->input->post('jadwal_kirim',TRUE),
-            'status_pengiriman' => ($this->input->post('jadwal_kirim',TRUE) == date('Y-m-d')) ? 'PROSES' : 'PENDING',
-            'keterangan' => $this->input->post('keterangan',TRUE),
-        );
+        if (isset($_POST) && !empty($_POST)) {
+            $U20 = $this->input->post('U20',TRUE);
+            $U40 = $this->input->post('U40',TRUE);
+            $jum_pesanan = $this->input->post('jum_kontainer',TRUE);
+            $data = array(
+                'id_konsumen' => $this->session->userdata('konsumen_id'),
+                'konsumen' => $this->M_Konsumen->getDetail($this->session->userdata('konsumen_id'))->perusahaan,
+                'nama_barang' => $this->input->post('nama_barang',TRUE),
+                'kapasitas_muat' => $this->input->post('kapasistas',TRUE).$this->input->post('satuan',TRUE),
+                'tujuan' => $this->input->post('tujuan',TRUE),
+                'jum_kontainer' => $jum_pesanan,
+                'tipe'=>($U20) ? "20'" : "40'",
+                '_20' => $U20,
+                '_40' => $U40,
+                'tarif' => ($U20) ? $U20 : $U40,
+                'total_tarif'=> ($U20) ? $U20 * $jum_pesanan : $U40 * $jum_pesanan,
+                'tgl_pesan' => date("Y-m-d"),
+                'jadwal_kirim' => $this->input->post('jadwal_kirim',TRUE),
+                'status_pengiriman' => ($this->input->post('jadwal_kirim',TRUE) == date('Y-m-d')) ? 'PROSES' : 'PENDING',
+                'keterangan' => $this->input->post('keterangan',TRUE),
+            );
 
-        $pilih = $this->input->post('tujuan',TRUE);
-        if ($pilih === "0") {
-            $this->session->set_flashdata('alert', error("Tujuan belum dipilih !!"));
-            redirect(site_url('pemesanan'));
-        }else{
-            $this->M_Pesanan->insert($data);
-            $this->session->set_flashdata('alert', success("Terimakasih sudah memesan kepada kami"));
-            redirect(site_url('pemesanan'));
-        }    
+            $pilih = $this->input->post('tujuan',TRUE);
+            if ($pilih === "0") {
+                $this->session->set_flashdata('alert', error("Tujuan belum dipilih !!"));
+                redirect(site_url('pemesanan'));
+            }else{
+                $this->M_Pesanan->insert($data);
+                $this->session->set_flashdata('alert', success("Terimakasih sudah memesan kepada kami"));
+                redirect(site_url('pemesanan'));
+            }  
+        }else {
+            show_403();
+        }  
     }
     
     public function test()

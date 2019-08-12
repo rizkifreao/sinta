@@ -3,27 +3,54 @@ defined('BASEPATH') or exit('No direct script access allowed');
 
 class Dashboard extends CI_Controller
 {
-
+    private $path = "";
     function __construct()
     {
         parent::__construct();
         $this->load->database();
         chek_session();
+        if ($this->ion_auth->is_admin()) {
+            $this->path = "admin";
+        }else {
+            $this->path = "page";
+        }
+    }
+
+    public function test()
+    {
+        $kondisi_pesanan = array('status_pengiriman !=' => 'BATAL', );
+        echo $this->M_Pesanan->CountPesananBy($kondisi_pesanan);
     }
 
     public function index()
     {
-        $data = $this->dataAdmin();
-        $this->template->display('admin/dashboard/index',$data);
+        if ($this->ion_auth->is_admin()) {
+            $data = $this->dataAdmin();
+        }else {
+            // CountPemesanan
+            $kondisi_pesanan = array('status_pengiriman !=' => 'BATAL', 'id_konsumen' => $this->session->userdata('konsumen_id') );
+            $data['jum_pemesanan'] = $this->M_Pesanan->CountPesananBy($kondisi_pesanan);
+            $kondisi_pesanan_batal = array('status_pengiriman' => 'BATAL', 'id_konsumen' => $this->session->userdata('konsumen_id') );
+            $data['jum_pemesanan_batal'] = $this->M_Pesanan->CountPesananBy($kondisi_pesanan_batal);
+        }
+
+        $this->template->display($this->path.'/dashboard/index',$data);
     }
 
     public function TotalHargaPemesananTahun($tahun)
     {
         header('Content-Type: application/json');
         
-        $konsumen = $this->M_Konsumen->getAllby(array(
+        if ($this->ion_auth->is_admin()) {
+            $konsumen = $this->M_Konsumen->getAllby(array(
             'is_delete ' => 0
-        ),'ASC');
+            ),'ASC');
+        }else {
+            $konsumen = $this->M_Konsumen->getAllby(array(
+            'id_konsumen' => $this->session->userdata('konsumen_id'),
+            'is_delete ' => 0
+            ),'ASC');
+        }
         $response['results'] = [];
         $response['bulan'] = ['Januari','Febuari','Maret','April','Mei','Juni','Juli','Agustus','September','Oktober','November','Desember'];
         $response['total_harga'] = 0;
@@ -32,12 +59,12 @@ class Dashboard extends CI_Controller
             $data = [];
             for ($i=1; $i <= 12 ; $i++) { 
                 $kondisi = array(
-                    'id_konsumen' => ($this->ion_auth->is_admin()) ? $key->id_konsumen : $this->session->userdata('user_id'),
+                    'id_konsumen' => ($this->ion_auth->is_admin()) ? $key->id_konsumen : $this->session->userdata('konsumen_id'),
                     'month(tgl_pesan)' => $i,
                     'year(tgl_pesan)' => $tahun );
 
                 $kondisi2 = array(
-                    'pemesanan.id_konsumen' => ($this->ion_auth->is_admin()) ? $key->id_konsumen : $this->session->userdata('user_id'),
+                    'pemesanan.id_konsumen' => ($this->ion_auth->is_admin()) ? $key->id_konsumen : $this->session->userdata('konsumen_id'),
                     'month(tgl_pesan)' => $i,
                     'year(tgl_pesan)'=> $tahun );
                 
@@ -60,9 +87,16 @@ class Dashboard extends CI_Controller
     public function pesananPerTahun($tahun)
     {
         header('Content-Type: application/json');
-        $konsumen = $this->M_Konsumen->getAllby(array(
+        if ($this->ion_auth->is_admin()) {
+            $konsumen = $this->M_Konsumen->getAllby(array(
             'is_delete ' => 0
-        ),'ASC');
+            ),'ASC');
+        }else {
+            $konsumen = $this->M_Konsumen->getAllby(array(
+            'id_konsumen' => $this->session->userdata('konsumen_id'),
+            'is_delete ' => 0
+            ),'ASC');
+        }
         $response['results'] = [];
         $response['bulan'] = ['Januari','Febuari','Maret','April','Mei','Juni','Juli','Agustus','September','Oktober','November','Desember'];
         $response['total'] = 0;
@@ -73,14 +107,14 @@ class Dashboard extends CI_Controller
             for ($a=1; $a <= 12; $a++) { 
                 array_push($data,
                     $this->M_Pesanan->CountPesananBy(array(
-                        'id_konsumen' => ($this->ion_auth->is_admin()) ? $key->id_konsumen : $this->session->userdata('user_id'),
+                        'id_konsumen' => ($this->ion_auth->is_admin()) ? $key->id_konsumen : $this->session->userdata('konsumen_id'),
                         'month(tgl_pesan)' => $a,
                         'year(tgl_pesan)' => $tahun,
                         'status_pengiriman !=' => 'BATAL'
                     ))
                 );
                 $response['total'] += $this->M_Pesanan->CountPesananBy(array(
-                    'id_konsumen' => ($this->ion_auth->is_admin()) ? $key->id_konsumen : $this->session->userdata('user_id'),
+                    'id_konsumen' => ($this->ion_auth->is_admin()) ? $key->id_konsumen : $this->session->userdata('konsumen_id'),
                     'month(tgl_pesan)' => $a,
                     'year(tgl_pesan)' => $tahun,
                     'status_pengiriman !=' => 'BATAL'

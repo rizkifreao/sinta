@@ -8,8 +8,8 @@
                 
                 <li class="sidebar-item"> <a class="sidebar-link has-arrow waves-effect waves-dark" href="javascript:void(0)" aria-expanded="false"><i class="mdi mdi-receipt"></i><span class="hide-menu"> Pemesanan </span></a>
                     <ul aria-expanded="false" class="collapse  first-level">
-                        <li class="sidebar-item"><a href="<?= base_url('pemesenan/pesan'); ?>" class="sidebar-link"><i class="mdi mdi-note-outline"></i><span class="hide-menu"> Pesan Sekarang </span></a></li>
-                        <li class="sidebar-item"><a href="<?= base_url('pemesanan'); ?>" class="sidebar-link"><i class="mdi mdi-note-plus"></i><span class="hide-menu"> Daftar Pesanan </span></a></li>
+                        <li class="sidebar-item"><a href="<?= base_url('pesan/kontainer'); ?>" class="sidebar-link"><i class="mdi mdi-note-outline"></i><span class="hide-menu"> Pesan Sekarang </span></a></li>
+                        <li class="sidebar-item"><a href="<?= base_url('pemesanan'); ?>" class="sidebar-link"><i class="mdi mdi-note-plus"></i><span class="hide-menu"> Data Pesanan </span></a></li>
                     </ul>
                 </li>
 

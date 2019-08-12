@@ -65,6 +65,32 @@
             color: #fff !important;
             display: none;
         }
+
+        .highcharts-data-table table {
+            border-collapse: collapse;
+            border-spacing: 0;
+            background: white;
+            min-width: 100%;
+            margin-top: 10px;
+            font-family: sans-serif;
+            font-size: 0.9em;
+        }
+        .highcharts-data-table td, .highcharts-data-table th, .highcharts-data-table caption {
+            border: 1px solid silver;
+            padding: 0.5em;
+        }
+        .highcharts-data-table tr:nth-child(even), .highcharts-data-table thead tr {
+            background: #f8f8f8;
+        }
+        .highcharts-data-table tr:hover {
+            background: #eff;
+        }
+        .highcharts-data-table caption {
+            border-bottom: none;
+            font-size: 1.1em;
+            font-weight: bold;
+        }
+
     </style>
 </head>
 
@@ -167,6 +193,7 @@
     } ?>
     
     <script type="text/javascript">
+    var table_options;
     $(document).ready(function () {
         // $("#notif").delay(350).slideDown('slow');
         // $("#notif").alert().delay(3000).slideUp('slow');
@@ -176,6 +203,25 @@
             autoclose: true,
             todayHighlight: true
         });
+
+        table_options = {
+            language: {
+                emptyTable: "Tidak ada data yang tersedia pada tabel ini",
+                zeroRecords: "Tidak ada catatan yang cocok ditemukan",
+                info: "Menampilkan _START_ - _END_ dari _TOTAL_ baris",
+                infoEmpty: "Tidak ada yang ditampilkan",
+                search: "Cari:",
+                searchPlaceholder: 'Ketik untuk mencari...',
+                lengthMenu: "Tampilkan _MENU_ baris",
+                infoFiltered:   "(difilter dari _MAX_ total baris)",
+                paginate: {
+                    first: "<<",
+                    last: ">>",
+                    next: $('html').attr('dir') == 'rtl' ? '&larr;' : '&rarr;',
+                    previous: $('html').attr('dir') == 'rtl' ? '&rarr;' : '&larr;'
+                }
+            }
+        }
     });
     </script>
 

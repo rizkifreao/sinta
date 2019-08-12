@@ -18,15 +18,6 @@
    <div class="row">
         <div class="col-md-6 col-lg-3 col-xlg-3">
             <div class="card card-hover">
-                <div class="box bg-cyan text-center">
-                    <h1 class="font-light text-white"><i class="fas fa-user-secret"></i></h1>
-                    <h5 class="m-b-0 m-t-5 text-white"><?= $jum_user ?></h5>
-                    <h6 class="text-white">Jumlah Akun</h6>
-                </div>
-            </div>
-        </div>
-        <div class="col-md-6 col-lg-3 col-xlg-3">
-            <div class="card card-hover">
                 <div class="box bg-info text-center">
                     <h1 class="font-light text-white"><i class="mdi mdi-file-document"></i></h1>
                     <h5 class="m-b-0 m-t-5 text-white"><?= $jum_pemesanan ?></h5>
@@ -40,15 +31,6 @@
                     <h1 class="font-light text-white"><i class="mdi mdi-file-excel"></i></h1>
                     <h5 class="m-b-0 m-t-5 text-white"><?= $jum_pemesanan_batal ?></h5>
                     <h6 class="text-white">Jumlah Pesanan Batal</h6>
-                </div>
-            </div>
-        </div>
-        <div class="col-md-6 col-lg-3 col-xlg-3">
-            <div class="card card-hover">
-                <div class="box bg-warning text-center">
-                    <h1 class="font-light text-white"><i class="fas fa-building"></i></h1>
-                    <h5 class="m-b-0 m-t-5 text-white"><?= $jum_konsumen ?></h5>
-                    <h6 class="text-white">Total Jumlah Konsumen</h6>
                 </div>
             </div>
         </div>
@@ -311,53 +293,6 @@
                     numericSymbols: [" k" , " Jt" , " M" , " T" , "P" , "E"]
                 },
             });
-            // Highcharts.addEvent(Highcharts.Chart, 'render', function () {
-            //     var table = this.dataTableDiv;
-            //     if (table) {
-
-            //         // Apply styles inline because stylesheets are not passed to the exported SVG
-            //         Highcharts.css(table.querySelector('table'), {
-            //             'border-collapse': 'collapse',
-            //             'border-spacing': 0,
-            //             background: 'white',
-            //             'min-width': '100%',
-            //             'font-family': 'sans-serif',
-            //             'font-size': '14px'
-            //         });
-
-            //         [].forEach.call(table.querySelectorAll('td, th, caption'), function (elem) {
-            //             Highcharts.css(elem, {
-            //                 border: '1px solid silver',
-            //                 padding: '0.5em'
-            //             });
-            //         });
-
-            //         Highcharts.css(table.querySelector('caption'), {
-            //             'border-bottom': 'none',
-            //             'font-size': '1.1em',
-            //             'font-weight': 'bold'
-            //         });
-
-            //         [].forEach.call(table.querySelectorAll('caption, tr'), function (elem, i) {
-            //             if (i % 2) {
-            //                 Highcharts.css(elem, {
-            //                     background: '#f8f8f8'
-            //                 });
-            //             }
-            //         });
-
-
-            //         // Add the table as the subtitle to make it part of the export
-            //         this.setTitle(null, {
-            //             text: table.outerHTML,
-            //             useHTML: true
-            //         });
-            //         if (table.parentNode) {
-            //             table.parentNode.removeChild(table);
-            //         }
-            //         delete this.dataTableDiv;
-            //     }
-            // });
             $('#TotPemesanan').highcharts(options);
             // var chart_pesanan = new Highcharts.Chart('TotPemesanan',options);
             

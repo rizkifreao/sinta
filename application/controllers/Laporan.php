@@ -20,10 +20,11 @@ class Laporan extends CI_Controller
     public function index()
     {
         if ($this->ion_auth->is_admin()) {
-           $data['action'] = "laporan/cetakPemesanan";
-           $data['konsumens'] = $this->M_Konsumen->getAll();
+            $data['action'] = "laporan/cetakPemesanan";
+            $data['konsumens'] = $this->M_Konsumen->getAll();
         }else{
-             
+            $data['action'] = "laporan/cetakPemesanan";
+            $data['konsumens'] = $this->M_Konsumen->getAll();
         }
         $this->template->display($this->path."/laporan/index",$data);
     }

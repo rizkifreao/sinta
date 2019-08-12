@@ -75,11 +75,13 @@ function rupiah($angka) {
 
 function status_kirim($status)
 {
-    if ($status == "PENDING") {
+    if ($status == "PROSES") {
         return "<td class='text-warning'>".$status."</td>";
-    }else if($status == "PROSES"){
+    }else if($status == "SELESAI"){
         return "<td class='text-success'>".$status."</td>";
     }else if($status == "BATAL"){
+        return "<td class='text-danger'>".$status."</td>";
+    }else{
         return "<td class='text-danger'>".$status."</td>";
     }
 }
