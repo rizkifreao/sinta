@@ -27,7 +27,7 @@
                 <div id="zero_config_wrapper" class="dataTables_wrapper container-fluid dt-bootstrap4">
                     <div class="row">
                         <div class="col-sm-12">
-                            <table id="tabel-pemesanan" class="table table-sm">
+                            <table id="tabel-pemesanan" class="table table-sm table-striped">
                                 <thead>
                                     <tr>
                                         <th>#</th>

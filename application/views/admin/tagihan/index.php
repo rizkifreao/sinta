@@ -30,6 +30,7 @@
                                         <th>#</th>
                                         <th>No Taggihan</th>
                                         <th>Perusahaan</th>
+                                        <th>Nama Barang</th>
                                         <th>Tujuan</th>
                                         <th>Jumlah Pesanan</th>
                                         <th>Type</th>
@@ -46,6 +47,7 @@
                                             <td><?= $no++ ?></td>
                                             <td><?= $row->id_pesanan."/".date('m/y') ?></td>
                                             <td><?= $row->konsumen ?></td>
+                                            <td><?= $row->nama_barang ?></td>
                                             <td><?= $row->tujuan ?></td>
                                             <td><?= $row->jum_kontainer?></td>
                                             <td><?= $row->tipe ?></td>
@@ -54,14 +56,7 @@
                                             <td><?= rupiah($row->biaya_tambahan); ?></td>
                                             <td><?= rupiah($row->total_tagihan); ?></td>
                                             <td>
-                                                <a href="<?=site_url('tagihan/cetakKwitansi/'.$row->id_pesanan)?>" class="btn btn-default">Kwitansi</a>
-                                                <?php if($row->status_pengiriman == "PROSES" ):  ?>
-                                                    <!-- <button type="button" class="btn btn-info btn-sm margin-5 text-white" data-id="<?=$row->id_pesanan?>" data-toggle="modal" data-target="#detail_pesanan" onclick="getDetail(this)" id="add_detail">
-                                                        <i class="far fa-file-archive"></i>
-                                                        Buat Tagihan
-                                                    </button> -->
-
-                                                <?php endif ?>
+                                                <a href="<?=site_url('tagihan/cetakKwitansi/'.$row->id_pesanan)?>" class="btn btn-default"><i class="mdi mdi-printer"></i>  Cetak Kwitansi</a>
                                             </td>
                                         </tr>
                                     <?php endforeach; ?>

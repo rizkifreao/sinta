@@ -1,36 +1,66 @@
-<section class="content">
-
+<div class="page-breadcrumb">
     <div class="row">
-        <div class="col-md-4">
-
-            <!-- Profile Image -->
-            <div class="box box-primary">
-                <div class="box-body box-profile">
-                    <img class="profile-user-img img-responsive img-circle" src="<?php echo base_url('public/web/user-profile').'/'.$avatar; ?>" alt="User profile picture">
-                    <h3 class="profile-username text-center"><?php echo $first_name,' ',$last_name ;?></h3>
-                    
-                    <ul class="list-group list-group-unbordered">
-                        <li class="list-group-item">
-                            <b>Nama Pengguna</b> <a class="pull-right"><?php echo $username ;?></a>
-                        </li>
-                        <li class="list-group-item">
-                            <b>Nama Toko </b> <a class="pull-right"><?php echo strtoupper($company) ;?></a>
-                        </li>
-                        <li class="list-group-item">
-                            <b>Alamat Email </b> <a class="pull-right"><?php echo $email ;?></a>
-                        </li>
-                        <li class="list-group-item">
-                            <b>Telpn</b> <a class="pull-right"><?php echo $phone ;?></a>
-                        </li>
-                    </ul>
-
-                    <a href="<?php echo base_url('auth/edit_user/'.$id) ?>" class="btn btn-primary btn-block"><b>Edit</b></a>
-                </div><!-- /.box-body -->
-            </div><!-- /.box -->
-
-            <!-- About Me Box -->
+        <div class="col-12 d-flex no-block align-items-center">
+            <h2>
+                Profil Pengguna
+            </h2>
             
-        
-    </div><!-- /.row -->
+            <div class="ml-auto text-right">
+                <nav aria-label="breadcrumb">
+                    <ol class="breadcrumb">
+                        <li class="breadcrumb-item"><a href="<?= base_url('dashboard') ?> ">Home</a></li>
+                        <li class="breadcrumb-item active" aria-current="page">Profil</li>
+                    </ol>
+                </nav>
+            </div>
+        </div>
+        <div class="col-12 d-flex no-block">
+            <p>Data personal pengguna</p>
+        </div>
+    </div>
+</div>
 
-</section>
+<div class="container-fluid">
+    <div class="col-md-6" data-select2-id="16">
+        <div class="card">
+            <div class="card-body">
+                    <h3 class="profile-username text-center"><?php echo $first_name,' ',$last_name ;?></h3>
+                    <br><br>
+                    <div class="form-group row">
+                        <label for="lname"class="col-sm-3  control-label col-form-label">Nama Pengguna</label>
+                        <div class="col-sm-9">
+                            <?php echo form_input('',$username,'readonly');?>
+                        </div>
+                    </div>                                           
+                    <div class="form-group row">
+                        <label for="example"class="col-sm-3  control-label col-form-label">Nama Perusahaan</label>
+                        <div class="col-sm-9">
+                            <?php
+                                $konsumen_id = $this->session->userdata('konsumen_id');
+                                $perusahaan = ($this->ion_auth->is_admin())? $this->M_Sistem_setting->getDetail()->nama_perusahaan : $this->M_Konsumen->getDetail($konsumen_id)->perusahaan;
+                                echo form_input('',$perusahaan,'readonly');
+                            ?>
+                        </div>
+                    </div> 
+                    <div class="form-group row">
+                        <label for="example"class="col-sm-3  control-label col-form-label">Alamat Email</label>
+                        <div class="col-sm-9">
+                            <?php echo form_input('',$email,'readonly');?>
+                        </div>
+                    </div>                      
+                    <div class="form-group row">
+                        <label for="example"class="col-sm-3  control-label col-form-label">Telepon</label>
+                        <div class="col-sm-9">
+                            <?php echo form_input('',$phone,'readonly');?>
+                        </div>
+                    </div> 
+                </div>
+               
+                <div class="border-top">
+                    <div class="card-body">
+                    <a href="<?php echo base_url('auth/edit_profil/'.$id) ?>" class="btn btn-primary btn-block"><b>Edit</b></a>
+                    </div>
+                </div>   
+        </div>
+    </div>
+</div>

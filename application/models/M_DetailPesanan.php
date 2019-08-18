@@ -3,7 +3,7 @@
 class M_DetailPesanan extends CI_Model {
 
     var $table_name = "detail_pesanan";
-    var $pk = "id";
+    var $pk = "id_pesanan";
     var $order = "DESC";
 
     function getAllDetailPesanan() {
@@ -17,7 +17,7 @@ class M_DetailPesanan extends CI_Model {
     }
 
     function getAllPemesananBy($kondisi = "") {
-        
+        $this->db->order_by($this->pk,$this->order);
         $this->db->select(
             '   pemesanan.id_pesanan,
                 pemesanan.id_konsumen,

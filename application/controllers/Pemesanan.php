@@ -111,6 +111,10 @@ class Pemesanan extends CI_Controller
             $U20 = $this->input->post('U20',TRUE);
             $U40 = $this->input->post('U40',TRUE);
             $jum_pesanan = $this->input->post('jum_kontainer',TRUE);
+            if ($jum_pesanan < 1) {
+                $this->session->set_flashdata('alert', error("Minimal jumlah kontainer sama dengan 1 !"));
+                redirect('pesan/kontainer');
+            }
             $data = array(
                 'id_konsumen' => $this->session->userdata('konsumen_id'),
                 'konsumen' => $this->M_Konsumen->getDetail($this->session->userdata('konsumen_id'))->perusahaan,
@@ -127,20 +131,104 @@ class Pemesanan extends CI_Controller
                 'jadwal_kirim' => $this->input->post('jadwal_kirim',TRUE),
                 'status_pengiriman' => ($this->input->post('jadwal_kirim',TRUE) == date('Y-m-d')) ? 'PROSES' : 'PENDING',
                 'keterangan' => $this->input->post('keterangan',TRUE),
+                'send_by' => $this->session->userdata('user_id'),
             );
 
             $pilih = $this->input->post('tujuan',TRUE);
             if ($pilih === "0") {
                 $this->session->set_flashdata('alert', error("Tujuan belum dipilih !!"));
-                redirect(site_url('pemesanan'));
+                redirect(site_url('pesan/kontainer'));
             }else{
+                // data user admin
+                $user_admin = $this->ion_auth->users('admin')->result();
+                // insert data ke tabel pemesanan
                 $this->M_Pesanan->insert($data);
-                $this->session->set_flashdata('alert', success("Terimakasih sudah memesan kepada kami"));
+                // ambin data pemesanan terakhir
+                $last_id_pesanan = $this->db->insert_id();
+
+                foreach ($user_admin as $key ) {
+                    $notif = array(
+                        'pengirim' => $this->session->userdata('user_id'),
+                        'penerima' => $key->id,
+                        'keterangan' => 'Telah mengajukan pesanan',
+                        'data' => $last_id_pesanan
+                    );
+                    $this->NotificationModels->add($notif);
+                }
+                $this->session->set_flashdata('alert', success("Terimakasih telah memesan"));
                 redirect(site_url('pemesanan'));
             }  
         }else {
             show_403();
         }  
+    }
+
+    public function edit($id)
+    {
+        $data_pemesanan = $this->M_Pesanan->getDetail($id);
+
+        if (!$data_pemesanan) {
+            $this->session->set_flashdata('alert', error("Data pemesanan tidak ditemukan !"));
+            redirect('pemesanan', 'refresh');
+        }
+
+        if ($data_pemesanan->status_pengiriman != 'PENDING') {
+            $this->session->set_flashdata('alert', error("Maaf tidak dapat dilakukan !"));
+            redirect('pemesanan', 'refresh');
+        }
+
+        if (isset($_POST) && !empty($_POST)) {
+            $U20 = $this->input->post('U20',TRUE);
+            $U40 = $this->input->post('U40',TRUE);
+            $jum_pesanan = $this->input->post('jum_kontainer',TRUE);
+            if ($jum_pesanan < 1) {
+                $this->session->set_flashdata('alert', error("Minimal jumlah kontainer sama dengan 1 !"));
+                redirect('pesan/kontainer');
+            }
+            $data = array(
+                'id_konsumen' => $this->session->userdata('konsumen_id'),
+                'konsumen' => $this->M_Konsumen->getDetail($this->session->userdata('konsumen_id'))->perusahaan,
+                'nama_barang' => $this->input->post('nama_barang',TRUE),
+                'kapasitas_muat' => $this->input->post('kapasistas',TRUE).$this->input->post('satuan',TRUE),
+                'tujuan' => $this->input->post('tujuan',TRUE),
+                'jum_kontainer' => $jum_pesanan,
+                'tipe'=>($U20) ? "20'" : "40'",
+                '_20' => $U20,
+                '_40' => $U40,
+                'tarif' => ($U20) ? $U20 : $U40,
+                'total_tarif'=> ($U20) ? $U20 * $jum_pesanan : $U40 * $jum_pesanan,
+                'tgl_pesan' => $data_pemesanan->tgl_pesan,
+                'jadwal_kirim' => $this->input->post('jadwal_kirim',TRUE),
+                'status_pengiriman' => ($this->input->post('jadwal_kirim',TRUE) == $data_pemesanan->tgl_pesan) ? 'PROSES' : 'PENDING',
+                'keterangan' => $this->input->post('keterangan',TRUE),
+                'send_by' => $this->session->userdata('user_id'),
+            );
+
+            $pilih = $this->input->post('tujuan',TRUE);
+            if ($pilih === "0") {
+                $this->session->set_flashdata('alert', error("Tujuan belum dipilih !!"));
+                redirect(site_url('pesan/kontainer'));
+            }else{
+                // data user admin
+                $user_admin = $this->ion_auth->users('admin')->result();
+                // insert data ke tabel pemesanan
+                $this->M_Pesanan->insert($data);
+                // ambin data pemesanan terakhir
+                $last_id_pesanan = $this->db->insert_id();
+
+                foreach ($user_admin as $key ) {
+                    $notif = array(
+                        'pengirim' => $this->session->userdata('user_id'),
+                        'penerima' => $key->id,
+                        'keterangan' => 'Telah mengajukan pesanan',
+                        'data' => $last_id_pesanan
+                    );
+                    $this->NotificationModels->add($notif);
+                }
+                $this->session->set_flashdata('alert', success("Terimakasih telah memesan"));
+                redirect(site_url('pemesanan'));
+            }  
+        }
     }
     
     public function test()

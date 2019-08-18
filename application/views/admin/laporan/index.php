@@ -62,7 +62,7 @@
                             <div id="zero_config_wrapper" class="dataTables_wrapper container-fluid dt-bootstrap4">
                                 <div class="row">
                                     <div class="col-sm-12"> -->
-                                        <table id="tabel_laporan" class="table">
+                                        <table id="tabel_laporan" class="table table-striped">
                                             <thead>
                                                 <tr>
                                                     <th>#</th>
@@ -72,7 +72,7 @@
                                                     <th>Tujuan</th>
                                                     <th>Jumlah</th>
                                                     <th>Tipe</th>
-                                                    <th width="80px">Total Tarif</th>
+                                                    <th width="80px">Total Tagihan</th>
                                                     <th>Tgl Pesan</th>
                                                     <th>Jadwal Kirim</th>
                                                     <th>Keterangan</th>
@@ -301,7 +301,7 @@ function drawTabel(konsumenId, startDate, endDate){
             { "data": "tujuan" },
             { "data": "jum_kontainer" },
             { "data": "tipe" },
-            { "width": "100px","data": "total_tarif" ,"render": $.fn.dataTable.render.number( '.', ',', 0,'') },
+            { "width": "100px","data": "total_tagihan" ,"render": $.fn.dataTable.render.number( '.', ',', 0,'') },
             { "width": "100px","data": "tgl_pesan" },
             { "width": "100px","data": "jadwal_kirim" },
             { "data": "keterangan" },

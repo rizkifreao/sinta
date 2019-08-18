@@ -26,9 +26,9 @@
             <hr>
 
             <div class='form-group row'>
-                <label for="lname"class="col-sm-3  control-label col-form-label <?php //form_error('tujuan') ? 'text-danger' : ''; ?>">Tujuan</label>
+                <label for="lname"class="col-sm-3  control-label col-form-label">Tujuan</label>
                 <div class="col-sm-9">
-                <select id="tujuan" name="tujuan" class="form-control  custom-select">
+                <select id="tujuan" name="tujuan" class="form-control  custom-select" required>
                     <option value="0" data_id="0">Pilih Tujuan</option>
                     <?php foreach ($rutes as $row) :?>
                         <option data_id="<?=$row->id_rute?>" value="<?=$row->tujuan?>"><?=$row->tujuan." | ".$type=($row->_20 ==="0") ? "Type 40" : "Type 20"?></option>
@@ -43,32 +43,27 @@
 
             <div id="F20">
                 <div class='form-group row'>
-                <label for="lname"class="col-sm-3 text-success  control-label col-form-label <?php //form_error('U20') ? 'text-danger' : ''; ?>">Harga Ukuran 20</label>
+                <label for="lname"class="col-sm-3 text-success  control-label col-form-label">Harga Ukuran 20</label>
                 <div class="col-sm-9">
-                    <input type="text" class="form-control is-valid <?php //form_error('U20') ? 'is-invalid' : ''; ?>" id="U20_dis" placeholder="Enter Harga" value="<?php //echo $U20; ?>" disabled/>
+                    <input type="text" class="form-control is-valid" id="U20_dis" placeholder="Enter Harga" value="" disabled/>
                     <input type="hidden" name="U20" id="U20" value=""/>
-                    <div class="<?php //form_error('U20') ? 'invalid-feedback' : '' ?>">
-                        <?php //form_error('U20') ?>
-                    </div>
                 </div>
                 </div>
             </div>
 
             <div id="F40">
                 <div class='form-group row'>
-                <label for="lname"class="col-sm-3 text-success  control-label col-form-label" <?php //form_error('U40') ? 'text-danger' : ''; ?>>Harga Ukuran 40</label>
+                <label for="lname"class="col-sm-3 text-success  control-label col-form-label">Harga Ukuran 40</label>
                 <div class="col-sm-9">
-                    <input type="text" class="form-control is-valid <?php //form_error('U40') ? 'is-invalid' : ''; ?>" id="U40_dis" placeholder="Enter Harga" value="<?php //echo $U40;  ?>" disabled/>
+                    <input type="text" class="form-control is-valid" id="U40_dis" placeholder="Enter Harga" value="" disabled/>
                     <input type="hidden" name="U40" id="U40" value=""/>
-                    <div class="<?php //form_error('U40') ? 'invalid-feedback' : '' ?>">
-                    <?php //form_error('U40') ?>
-                    </div>
+                    
                 </div>
                 </div>
             </div>
         
             <div class='form-group row'>
-                <label for="lname"class="col-sm-3   control-label col-form-label" <?php //form_error('U40') ? 'text-danger' : ''; ?>>Nama Barang</label>
+                <label for="lname"class="col-sm-3   control-label col-form-label">Nama Barang</label>
                 <div class="col-sm-9">
                     <input type="text" class="form-control  <?php //form_error('U40') ? 'is-invalid' : ''; ?>" name="nama_barang" id="nama_barang" placeholder="Masukan nama barang" value="<?php //echo $U40;  ?>"required/>
                     <div class="<?php //form_error('U40') ? 'invalid-feedback' : '' ?>">
@@ -78,10 +73,10 @@
             </div>
 
             <div class='form-group row'>
-                <label for="lname"class="col-sm-3  control-label col-form-label" <?php //form_error('U40') ? 'text-danger' : ''; ?>>Jadwal Kirim</label>
+                <label for="lname"class="col-sm-3  control-label col-form-label">Jadwal Kirim</label>
                 <div class="col-sm-9">
                 <div class="input-group">
-                    <input type="text" class="form-control tanggal" name="jadwal_kirim" placeholder="dd/mm/yyyy" required>
+                    <input type="text" class="form-control tanggal" id="tanggal" name="jadwal_kirim" placeholder="Pilih Tanggal" required>
                     <div class="input-group-append">
                         <span class="input-group-text"><i class="fa fa-calendar"></i></span>
                     </div>
@@ -90,9 +85,9 @@
             </div>
 
             <div class='form-group row'>
-                <label for="lname"class="col-sm-3  control-label col-form-label" <?php //form_error('U40') ? 'text-danger' : ''; ?>>Jumlah Kontainer</label>
+                <label for="lname"class="col-sm-3  control-label col-form-label">Jumlah Kontainer</label>
                 <div class="col-sm-9">
-                    <input type="number" class="form-control <?php //form_error('U40') ? 'is-invalid' : ''; ?>" name="jum_kontainer" id="jum_kontainer" placeholder="Masukan jumlah kontainer" value="<?php //echo $U40;  ?>" required/>
+                    <input type="number" class="form-control <?php //form_error('U40') ? 'is-invalid' : ''; ?>" name="jum_kontainer" id="jum_kontainer" min="1" placeholder="Masukan jumlah kontainer" value="<?php //echo $U40;  ?>" required/>
                     <div class="<?php //form_error('U40') ? 'invalid-feedback' : '' ?>">
                     <?php //form_error('U40') ?>
                     </div>
@@ -100,7 +95,7 @@
             </div>
 
             <div class='form-group row'>
-                <label for="lname"class="col-sm-3  control-label col-form-label" <?php //form_error('U40') ? 'text-danger' : ''; ?>>Kapasitas Muatan</label>
+                <label for="lname"class="col-sm-3  control-label col-form-label">Kapasitas Muatan</label>
                 <div class="col-sm-9">
                     <div class="input-group">
                         <div class="input-group-prepend">
@@ -111,13 +106,13 @@
                                 </select>
                             </span>
                         </div>
-                        <input type="number" class="form-control <?php //form_error('U40') ? 'is-invalid' : ''; ?>" name="kapasistas" id="kapasistas" placeholder="Masukan nama barang" value="<?php //echo $U40;  ?>" required/>
+                        <input type="number" min="1" class="form-control <?php //form_error('U40') ? 'is-invalid' : ''; ?>" name="kapasistas" id="kapasistas" placeholder="Masukan nama barang" value="<?php //echo $U40;  ?>" required/>
                     </div>
                 </div>
             </div>
 
             <div class='form-group row'>
-                <label for="lname"class="col-sm-3  control-label col-form-label" <?php //form_error('U40') ? 'text-danger' : ''; ?>>Keterangan</label>
+                <label for="lname"class="col-sm-3  control-label col-form-label">Keterangan</label>
                 <div class="col-sm-9">
                     <textarea class="form-control <?php //form_error('U40') ? 'is-invalid' : ''; ?>" name="keterangan" id="keterangan" placeholder="Masukan Keterangan" value="<?php //echo $U40;  ?>" ></textarea>
                     <div class="<?php //form_error('U40') ? 'invalid-feedback' : '' ?>">
@@ -145,10 +140,14 @@
 
 <script>
 $(document).ready(function() {
-
-    $('.tanggal').datepicker({
+   
+    $('#tanggal').datepicker({
+        changeYear: true,
+        changeMonth: true,
         format: 'yyyy-mm-dd',
         autoclose: true,
+        yearRange: "-100:+20",
+        minDate: new Date(),
         todayHighlight: true
     });
 

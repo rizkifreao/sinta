@@ -32,7 +32,7 @@ class Laporan extends CI_Controller
     public function reloadbydate($konsumenId = "",$tgl_awal = "", $tgl_akhir = "")
     {
         if ($konsumenId == "all_konsumen") {
-            $data['data'] = $this->M_Pesanan->getAllBy(array(
+            $data['data'] = $this->M_DetailPesanan->getAllPemesananBy(array(
                 'status_pengiriman !=' => 'BATAL', 
                 'tgl_pesan >=' => $tgl_awal,
                 'tgl_pesan <=' => $tgl_akhir,
@@ -44,7 +44,7 @@ class Laporan extends CI_Controller
                 $this->session->set_flashdata('alert', error("Data tidak ditemukan"));
             }
         }else {
-            $data['data'] = $this->M_Pesanan->getAllBy(array(
+            $data['data'] = $this->M_DetailPesanan->getAllPemesananBy(array(
                 'status_pengiriman !=' => 'BATAL',
                 'id_konsumen' => $konsumenId,
                 'tgl_pesan >=' => $tgl_awal,
@@ -109,10 +109,12 @@ class Laporan extends CI_Controller
                 $data["jenis"] = "harian";
                 $data["judul"] = "Laporan Pemesanan Per-Konsumen Harian";
             }
-            echo var_dump($data);
+            // echo json_encode($data);
             $this->template->view_pdf("pdf/LaporanPemesananAll",$data);
+            // $this->load->view("exports/pdf/index",$data);
             // echo count($konsumen);
         }else {
+            // $detail_konsumen = $this->M_Konsumen->getDetail($this->session->userdata('konsumen_id'));
             $data['pemesanan'] = $this->M_Pesanan->getAllBy(array(
                 'status_pengiriman !=' => 'BATAL',
                 'id_konsumen' => $konsumenId, 

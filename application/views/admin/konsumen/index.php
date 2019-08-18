@@ -35,7 +35,6 @@
                                         <th>Perusahaan</th>
                                         <th>NPWP</th>
                                         <th width="200">Alamat</th>
-                                        <th>Rute</th>
                                         <th>Aksi</th>
                                     </tr>
                                 </thead>
@@ -48,7 +47,6 @@
                                         <td><?= $row->perusahaan ?></td>
                                         <td><?= $row->npwp ?></td>
                                         <td><?= $row->alamat ?></td>
-                                        <td>Rute</td>
                                         <td>
                                             <a href="<?=site_url('konsumen/detail')."/".$row->id_konsumen ?>"><i class="btn btn-primary btn-sm mdi mdi-eye" data-toggle="tooltip" title="Detail"></i></a>
                                             <a href="<?=site_url('konsumen/update')."/".$row->id_konsumen ?>"><i class="btn btn-info btn-sm fas fa-edit" data-toggle="tooltip" title="Ubah"></i></a>

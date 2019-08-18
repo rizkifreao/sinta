@@ -23,11 +23,10 @@
                 <div id="zero_config_wrapper" class="dataTables_wrapper container-fluid dt-bootstrap4">
                     <div class="row">
                         <div class="col-sm-12">
-                            <table id="tbl_pesanan" class="table table-sm">
+                            <table id="tbl_pesanan" class="table table-sm table-striped">
                                 <thead>
                                     <tr>
                                         <th>#</th>
-                                        <th>Perusahaan</th>
                                         <th>Nama Barang</th>
                                         <th>Kapasitas</th>
                                         <th>Tujuan</th>
@@ -44,7 +43,6 @@
                                     <?php $no=1; foreach ($pemesanans as $row) : ?>
                                         <tr>
                                             <td><?= $no++ ?></td>
-                                            <td><?= $row->konsumen ?></td>
                                             <td><?= $row->nama_barang ?></td>
                                             <td><?= $row->kapasitas_muat?></td>
                                             <td><?= $row->tujuan ?></td>
@@ -56,10 +54,13 @@
                                             <?= status_kirim($row->status_pengiriman) ?>
                                             
                                             <td>
-                                                <?php if($row->jadwal_kirim == date('Y-m-d') ):  ?>
-                                                    <button type="button" class="btn btn-warning margin-5 text-white" data-id="<?=$row->id_pesanan?>" data-toggle="modal" data-target="#detail_pesanan" onclick="getDetail(this)" id="add_detail">
-                                                        Alert
-                                                    </button>
+                                                <?php if($row->status_pengiriman == "PENDING" ):  ?>
+                                                    <a href="pemesanan/edit/<?=$row->id_pesanan?>" title="Ubah" data-toggle="tooltip" data-placement="top" class="btn btn-info btn-sm margin-5 text-white" id="add_detail">
+                                                        <i class="mdi mdi-tooltip-edit"></i>
+                                                    </a>
+                                                    <a href="pemesanan/batal/<?=$row->id_pesanan?>" title="Batal Pesan" data-toggle="tooltip" data-placement="top" class="btn btn-danger btn-sm margin-5 text-white" id="batal">
+                                                        <i class="mdi mdi-file-excel"></i>
+                                                    </a>
                                                 <?php else: echo "";?>
 
                                                 <?php endif ?>

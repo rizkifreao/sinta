@@ -22,7 +22,7 @@
                 <div class="col-md-12">
                     <div class="box box-primary">
                         <form action="<?=$action?>" method="POST" autocomplete="off">
-                            <input type="hidden" id="perusahaan" value="<?= $this->session->userdata('konsumen_id')?>">
+                            <input type="hidden" id="perusahaan" name="perusahaan" value="<?= $this->session->userdata('konsumen_id')?>">
                             <div class="row">
                                 <!-- beign::KOLOM1 -->
                                 <div class="col-md-6">
@@ -53,11 +53,10 @@
                             <div id="zero_config_wrapper" class="dataTables_wrapper container-fluid dt-bootstrap4">
                                 <div class="row">
                                     <div class="col-sm-12"> -->
-                                        <table id="tabel_laporan" class="table">
+                                        <table id="tabel_laporan" class="table table-striped">
                                             <thead>
                                                 <tr>
                                                     <th>#</th>
-                                                    <th>Perusahaan</th>
                                                     <th>Nama Barang</th>
                                                     <th>Kapasitas</th>
                                                     <th>Tujuan</th>
@@ -73,7 +72,7 @@
                                             <tfoot>
                                                 <tr>
                                                     
-                                                    <th colspan=6>TOTAL</th>
+                                                    <th colspan=5>TOTAL</th>
                                                     <th></th>
                                                     <th></th>
                                                     <th></th>
@@ -254,8 +253,8 @@ function drawTabel(konsumenId, startDate, endDate){
         order: [[ 0, 'asc' ]],
         footerCallback: function ( row, data, start, end, display ) {
             var api = this.api();
-            var nb_cols = 8
-            var j = 7;
+            var nb_cols = 7
+            var j = 6;
             while(j < nb_cols){
                 var pageTotal = api
                         .column( j, { page: 'current'} )
@@ -271,7 +270,6 @@ function drawTabel(konsumenId, startDate, endDate){
         },
         columns : [
             { "data": null},
-            { "data": "konsumen" },
             { "data": "nama_barang" },
             { "data": "kapasitas_muat" },
             { "data": "tujuan" },

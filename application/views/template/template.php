@@ -222,7 +222,39 @@
                 }
             }
         }
+            
+        load_unseen_notification();
+        // $('#chatAudio')[0].play();
+        
+        $(document).on('click', '#toggle-notif', function(){            
+            $('.count').html('');
+            load_unseen_notification('yes');
+        });
+        
+        setInterval(function(){ 
+            load_unseen_notification();
+        }, 5000);
     });
+
+    function load_unseen_notification(view = '')
+        {
+            $.ajax({
+            url:"<?=base_url('').'notifications/fetch'?>",
+            method:"POST",
+            data:{view:view},
+            dataType:"json",
+                success:function(data)
+                {
+                // console.log(data);
+                $('.notifikasi').html(data.notification);
+                if(data.unseen_notification > 0)
+                {
+                    $('.count').html(data.unseen_notification);
+                    // n + data.unseen_notification;
+                }
+                }
+            });
+        }
     </script>
 
 </body>

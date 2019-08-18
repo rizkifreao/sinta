@@ -132,4 +132,4 @@ $autoload['language'] = array();
 |
 |	$autoload['model'] = array('first_model' => 'first');
  */
-$autoload['model'] = array("M_Pesanan", "M_Rute", "M_Uang_Jalan", "M_Konsumen", "M_DetailPesanan","M_Laporan", "M_Sistem_setting");
+$autoload['model'] = array("NotificationModels","M_Pesanan", "M_Rute", "M_Uang_Jalan", "M_Konsumen", "M_DetailPesanan","M_Laporan", "M_Sistem_setting");
