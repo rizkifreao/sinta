@@ -31,6 +31,7 @@
                                 <thead>
                                     <tr>
                                         <th>#</th>
+                                        <th>No Pemesanan</th>
                                         <th>Perusahaan</th>
                                         <th>Nama Barang</th>
                                         <th>Kapasitas</th>
@@ -48,6 +49,7 @@
                                     <?php $no=1; foreach ($pemesanans as $row) : ?>
                                         <tr>
                                             <td><?= $no++ ?></td>
+                                            <td><?= $row->id_pesanan ?></td>
                                             <td><?= $row->konsumen ?></td>
                                             <td><?= $row->nama_barang ?></td>
                                             <td><?= $row->kapasitas_muat?></td>

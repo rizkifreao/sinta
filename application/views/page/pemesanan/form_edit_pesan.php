@@ -4,7 +4,7 @@
 <div class="page-breadcrumb">
     <div class="row">
         <div class="col-12 d-flex no-block align-items-center">
-            <h2 class="page-title">Form Pemesanan</h2>
+            <h2 class="page-title">Form Ubah Pemesanan</h2>
             <div class="ml-auto text-right">
                 <nav aria-label="breadcrumb">
                     <ol class="breadcrumb">
@@ -20,9 +20,9 @@
 <!-- FORM PEMESANAN -->
 <div class="container-fluid">
     <div class="card">       
-    <form action="<?=$action?>" method="post" autocomplete="off" id="form_order" >
+    <form action="<?=base_url(uri_string())?>" method="post" autocomplete="off" id="form_order" >
         <div class='card-body'>
-            <h4 class="card-title"><?=$form_title ?></h4>
+            <h4 class="card-title">Ubah data pesanan</h4>
             <hr>
 
             <div class='form-group row'>
@@ -31,7 +31,7 @@
                 <select id="tujuan" name="tujuan" class="form-control  custom-select" required>
                     <option value="0" data_id="0">Pilih Tujuan</option>
                     <?php foreach ($rutes as $row) :?>
-                        <option data_id="<?=$row->id_rute?>" value="<?=$row->id_rute?>"><?=$row->tujuan." | ".$type=($row->_20 ==="0") ? "Type 40" : "Type 20"?></option>
+                        <option data_id="<?=$row->id_rute?>" value="<?=$row->id_rute?>" ><?=$row->tujuan." | ".$type=($row->_20 ==="0") ? "Type 40" : "Type 20"?></option>
                     <?php endforeach; ?>
                 </select>
 
@@ -65,7 +65,7 @@
             <div class='form-group row'>
                 <label for="lname"class="col-sm-3   control-label col-form-label">Nama Barang</label>
                 <div class="col-sm-9">
-                    <input type="text" class="form-control  <?php //form_error('U40') ? 'is-invalid' : ''; ?>" name="nama_barang" id="nama_barang" placeholder="Masukan nama barang" value="<?php //echo $U40;  ?>"required/>
+                    <input type="text" class="form-control  <?php //form_error('U40') ? 'is-invalid' : ''; ?>" name="nama_barang" id="nama_barang" placeholder="Masukan nama barang" value="<?=$data_pemesanan->nama_barang?>" required/>
                     <div class="<?php //form_error('U40') ? 'invalid-feedback' : '' ?>">
                     <?php //form_error('U40') ?>
                     </div>
@@ -76,7 +76,7 @@
                 <label for="lname"class="col-sm-3  control-label col-form-label">Jadwal Kirim</label>
                 <div class="col-sm-9">
                 <div class="input-group">
-                    <input type="text" class="form-control tanggal" id="tanggal" name="jadwal_kirim" placeholder="Pilih Tanggal" required>
+                    <input type="text" class="form-control tanggal" id="tanggal" name="jadwal_kirim" value="<?=$data_pemesanan->jadwal_kirim?>" placeholder="Pilih Tanggal" required>
                     <div class="input-group-append">
                         <span class="input-group-text"><i class="fa fa-calendar"></i></span>
                     </div>
@@ -87,7 +87,7 @@
             <div class='form-group row'>
                 <label for="lname"class="col-sm-3  control-label col-form-label">Jumlah Kontainer</label>
                 <div class="col-sm-9">
-                    <input type="number" class="form-control <?php //form_error('U40') ? 'is-invalid' : ''; ?>" name="jum_kontainer" id="jum_kontainer" min="1" placeholder="Masukan jumlah kontainer" value="<?php //echo $U40;  ?>" required/>
+                    <input type="number" class="form-control <?php //form_error('U40') ? 'is-invalid' : ''; ?>" name="jum_kontainer" id="jum_kontainer" min="1" placeholder="Masukan jumlah kontainer" value="<?=$data_pemesanan->jum_kontainer?>" required/>
                     <div class="<?php //form_error('U40') ? 'invalid-feedback' : '' ?>">
                     <?php //form_error('U40') ?>
                     </div>
@@ -102,11 +102,11 @@
                             <span>
                                 <select name="satuan" id="" class="form-control">
                                     <option value=" Ton">Ton</option>
-                                    <option value=" Kuintal">Kuintal</option>
+                                    <option value=" Kuintal" <?=(substr($data_pemesanan->kapasitas_muat, -7) == 'Kuintal')? 'selected': ''?> >Kuintal</option>
                                 </select>
                             </span>
                         </div>
-                        <input type="number" min="1" class="form-control <?php //form_error('U40') ? 'is-invalid' : ''; ?>" name="kapasistas" id="kapasistas" placeholder="Masukan nama barang" value="<?php //echo $U40;  ?>" required/>
+                        <input type="number" min="1" class="form-control" name="kapasistas" id="kapasistas" placeholder="Masukan nama barang" value="<?=filter_var($data_pemesanan->kapasitas_muat, FILTER_SANITIZE_NUMBER_INT)?>" required/>
                     </div>
                 </div>
             </div>
@@ -114,7 +114,7 @@
             <div class='form-group row'>
                 <label for="lname"class="col-sm-3  control-label col-form-label">Keterangan</label>
                 <div class="col-sm-9">
-                    <textarea class="form-control <?php //form_error('U40') ? 'is-invalid' : ''; ?>" name="keterangan" id="keterangan" placeholder="Masukan Keterangan" value="<?php //echo $U40;  ?>" ></textarea>
+                    <textarea class="form-control <?php //form_error('U40') ? 'is-invalid' : ''; ?>" name="keterangan" id="keterangan" placeholder="Masukan Keterangan" value="" ><?=$data_pemesanan->keterangan?></textarea>
                     <div class="<?php //form_error('U40') ? 'invalid-feedback' : '' ?>">
                     <?php //form_error('U40') ?>
                     </div>
@@ -137,7 +137,6 @@
 
     <!-- END: FORM PEMESANAN -->
 </div>
-
 <script>
 $(document).ready(function() {
    
@@ -181,6 +180,9 @@ $(document).ready(function() {
             }
         });
     });
+
+    $("#tujuan").val('<?=$data_pemesanan->id_rute?>');
+    $('#tujuan').select2().trigger('change');
 });
 
 function resetForm() {
