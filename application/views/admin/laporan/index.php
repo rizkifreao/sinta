@@ -39,7 +39,7 @@
                                             </div>
                                     </div>
                                     
-                                    <button type="submit" class="btn btn-default" formtarget="_blank"><i class="mdi mdi-arrow-down-bold-circle"></i>Download Laporan</button>
+                                    <button type="submit" class="btn btn-default"><i class="mdi mdi-arrow-down-bold-circle"></i>Download Laporan</button>
                                 </div>
                                 <!-- beign::KOLOM1 -->
                                 <div class="col-md-6">
