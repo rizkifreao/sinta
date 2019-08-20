@@ -12,7 +12,7 @@
                         <li class="sidebar-item"><a href="<?= base_url('konsumen'); ?>" class="sidebar-link"><i class="mdi mdi-hospital-building"></i><span class="hide-menu"> Konsumen </span></a></li>
                         <li class="sidebar-item"><a href="<?= base_url('auth/member'); ?>" class="sidebar-link"><i class="mdi mdi-account-key"></i><span class="hide-menu"> Akun </span></a></li>
                         <!-- <li class="sidebar-item"><a href="<?= base_url('supir'); ?>" class="sidebar-link"><i class="mdi mdi-note-plus"></i><span class="hide-menu"> Supir </span></a></li> -->
-                        <!-- <li class="sidebar-item"><a href="<?= base_url('groups'); ?>" class="sidebar-link"><i class="mdi mdi-google-circles-group"></i><span class="hide-menu"> Groups </span></a></li> -->
+                        <li class="sidebar-item"><a href="<?= base_url('groups'); ?>" class="sidebar-link"><i class="mdi mdi-google-circles-group"></i><span class="hide-menu"> Groups </span></a></li>
 
                     </ul>
                 </li>
