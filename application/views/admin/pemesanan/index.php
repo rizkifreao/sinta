@@ -145,7 +145,7 @@ function getDetail(ini) {
                                     <div class="form-group row">
                                         <label for="fname" class="col-sm-3 text-right control-label col-form-label">No Kontainer</label>
                                         <div class="col-sm-9">
-                                            <input type="text" class="form-control" id="fname" name="no_kontainer`+i+`" pattern=".{7,}" placeholder="Masukan no kontainer" required oninvalid="setCustomValidity('Kolom ini harus diisi !')" oninput="setCustomValidity('')">
+                                            <input type="text" class="form-control" id="fname" name="no_kontainer`+i+`" pattern=".{7,}" placeholder="Masukan no kontainer" required oninvalid="setCustomValidity('Kolom tidak 7 digit !')" oninput="setCustomValidity('')">
                                         </div>
                                     </div>
                                 </div>
